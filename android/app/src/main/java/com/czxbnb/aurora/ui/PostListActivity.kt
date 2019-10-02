@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czxbnb.aurora.R
 import com.czxbnb.aurora.databinding.ActivityPostListBinding
+import com.czxbnb.aurora.injection.ViewModelFactory
 import com.czxbnb.aurora.viewmodel.PostListViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -25,7 +26,7 @@ class PostListActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_post_list)
         binding.postList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        viewModel = ViewModelProviders.of(this).get(PostListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(PostListViewModel::class.java)
         binding.viewModel = viewModel
 
         viewModel.errorMessage.observe(this, Observer {
@@ -33,7 +34,7 @@ class PostListActivity : AppCompatActivity() {
         })
     }
 
-    private fun showError(@StringRes errorMessage:Int){
+    private fun showError(errorMessage:String){
         errorSnackbar = Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_INDEFINITE)
         errorSnackbar?.setAction(R.string.retry, viewModel.errorClickListener)
         errorSnackbar?.show()
