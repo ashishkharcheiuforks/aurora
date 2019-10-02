@@ -3,3 +3,5 @@
 /.idea/vcs.xml
 /.idea/watcherTasks.xml
 /android/.idea
+/backend/node_modules
+/frontend/node_modules
