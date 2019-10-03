@@ -2,16 +2,14 @@ package com.czxbnb.aurora.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czxbnb.aurora.R
 import com.czxbnb.aurora.databinding.ActivityPostListBinding
 import com.czxbnb.aurora.injection.ViewModelFactory
-import com.czxbnb.aurora.viewmodel.PostListViewModel
+import com.czxbnb.aurora.ui.post.PostListViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class PostListActivity : AppCompatActivity() {

@@ -1,8 +1,7 @@
-package com.czxbnb.aurora.viewmodel
+package com.czxbnb.aurora.ui.post
 
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import com.czxbnb.aurora.R
 import com.czxbnb.aurora.adapter.PostListAdapter
 import com.czxbnb.aurora.base.BaseViewModel
 import com.czxbnb.aurora.model.post.Post
@@ -12,7 +11,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 import javax.inject.Inject
 
 class PostListViewModel(private val postDao: PostDao) : BaseViewModel() {

@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.czxbnb.aurora.injection.component.DaggerViewModelInjector
 import com.czxbnb.aurora.injection.component.ViewModelInjector
 import com.czxbnb.aurora.injection.module.NetworkModule
-import com.czxbnb.aurora.viewmodel.PostListViewModel
+import com.czxbnb.aurora.ui.auth.login.LoginViewModel
+import com.czxbnb.aurora.ui.post.PostListViewModel
 
 abstract class BaseViewModel : ViewModel() {
     private val injector: ViewModelInjector = DaggerViewModelInjector
@@ -19,6 +20,7 @@ abstract class BaseViewModel : ViewModel() {
     private fun inject() {
         when(this) {
             is PostListViewModel -> injector.inject(this)
+            is LoginViewModel -> injector.inject(this)
         }
     }
 }

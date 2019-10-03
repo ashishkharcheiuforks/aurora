@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.czxbnb.aurora.viewmodel.PostListViewModel" />
+            type="com.czxbnb.aurora.ui.post.PostListViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
