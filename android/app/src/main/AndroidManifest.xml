@@ -12,15 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.auth.splash.SplashActivity"></activity>
+
         <meta-data
             android:name="android.max_aspect"
-            android:value="2.4" />
-
-        <!--Huawei screen-->
+            android:value="2.4" /> <!-- Huawei screen -->
         <meta-data
             android:name="android.notch_support"
-            android:value="true" />
-        <!--Xiaomi screen-->
+            android:value="true" /> <!-- Xiaomi screen -->
         <meta-data
             android:name="notch.config"
             android:value="portrait|landscape" />
@@ -31,11 +30,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.PostListActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ui.PostListActivity" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

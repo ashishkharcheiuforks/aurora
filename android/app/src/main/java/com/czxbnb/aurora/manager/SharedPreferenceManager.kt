@@ -8,7 +8,7 @@ class SharedPreferenceManager private constructor(private val context: Context) 
     private val mPrefs: SharedPreferences
 
     var token: String?
-        get() = mPrefs.getString(KEY_TOKEN, "")
+        get() = mPrefs.getString(KEY_TOKEN, null)
         set(token) = mPrefs.edit().putString(KEY_TOKEN, token).apply()
 
     init {

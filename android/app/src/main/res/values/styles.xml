@@ -29,4 +29,8 @@
         <item name="mrl_rippleHover">true</item>
         <item name="mrl_rippleAlpha">0.2</item>
     </style>
+
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@color/overlay_light_90</item>
+    </style>
 </resources>
