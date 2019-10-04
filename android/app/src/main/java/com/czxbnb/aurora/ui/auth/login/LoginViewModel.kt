@@ -2,11 +2,9 @@ package com.czxbnb.aurora.ui.auth.login
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import com.czxbnb.aurora.MainActivity
+import com.czxbnb.aurora.ui.main.MainActivity
 import com.czxbnb.aurora.base.BaseViewModel
 import com.czxbnb.aurora.manager.SharedPreferenceManager
 import com.czxbnb.aurora.model.user.User

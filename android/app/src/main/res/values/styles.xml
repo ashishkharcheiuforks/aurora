@@ -30,7 +30,8 @@
         <item name="mrl_rippleAlpha">0.2</item>
     </style>
 
-    <style name="AppTheme.Launcher">
-        <item name="android:windowBackground">@color/overlay_light_90</item>
+    <!-- Splash Screen theme. -->
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
 </resources>

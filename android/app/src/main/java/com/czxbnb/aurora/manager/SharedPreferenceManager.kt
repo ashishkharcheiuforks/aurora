@@ -16,8 +16,8 @@ class SharedPreferenceManager private constructor(private val context: Context) 
     }
 
     companion object {
-        private val PREF_NAME = "pref_aurora"
-        private val KEY_TOKEN = "key_token"
+        private const val PREF_NAME = "pref_aurora"
+        private const val KEY_TOKEN = "key_token"
         @SuppressLint("StaticFieldLeak")
         private var instance: SharedPreferenceManager? = null
 
