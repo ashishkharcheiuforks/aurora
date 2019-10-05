@@ -2,6 +2,7 @@ package com.czxbnb.aurora.injection.component
 
 import com.czxbnb.aurora.injection.module.NetworkModule
 import com.czxbnb.aurora.ui.auth.login.LoginViewModel
+import com.czxbnb.aurora.ui.home.HomeActivityViewModel
 import com.czxbnb.aurora.ui.home.HomeViewModel
 import com.czxbnb.aurora.ui.main.MainViewModel
 import com.czxbnb.aurora.ui.post.PostListViewModel
@@ -34,9 +35,15 @@ interface ViewModelInjector {
 
     /**
      * Injects required dependencies into the specified HomeViewModel
-     * @param homeViewModel MainViewModel in which to inject the dependencies
+     * @param homeViewModel HomeViewModel in which to inject the dependencies
      */
     fun inject(homeViewModel: HomeViewModel)
+
+    /**
+     * Injects required dependencies into the specified HomeActivityViewModel
+     * @param homeActivityViewModel HomeActivityViewModel in which to inject the dependencies
+     */
+    fun inject(homeActivityViewModel: HomeActivityViewModel)
 
     @Component.Builder
     interface Builder {

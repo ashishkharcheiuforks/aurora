@@ -18,7 +18,7 @@ module.exports = {
                 // If connection error, return error message
                 response.status = 500;
                 response.message = "Database connection error";
-               res.status(response.status).send(response);
+                res.status(response.status).send(response);
             } else {
                 // Grab the input from request
                 let {username, password, nick_name} = req.body;
@@ -29,14 +29,14 @@ module.exports = {
                         // Hash error
                         response.status = 500;
                         response.message = "Unable to register, please change password and try again";
-                       res.status(response.status).send(response);
+                        res.status(response.status).send(response);
                     } else {
                         connection.query(userDao.getUsers, username, function (error, result) {
                             if (result.length > 0) {
                                 // Hash error
                                 response.status = 400;
                                 response.message = "User already exist, please change username and try again";
-                               res.status(response.status).send(response);
+                                res.status(response.status).send(response);
                             } else {
                                 password = hash;
                                 // Save the record to the database
@@ -45,7 +45,7 @@ module.exports = {
                                         if (error) {
                                             response.status = 500;
                                             response.message = "Unable to register, please try again later";
-                                           res.status(response.status).send(response);
+                                            res.status(response.status).send(response);
                                         } else {
                                             response.status = 200;
                                             response.message = "Account successfully registered";
@@ -53,7 +53,7 @@ module.exports = {
                                                 username: username,
                                                 nick_name: nick_name
                                             };
-                                           res.status(response.status).send(response);
+                                            res.status(response.status).send(response);
                                         }
                                     });
                             }
@@ -73,7 +73,7 @@ module.exports = {
                 // If connection error, return error message
                 response.status = 500;
                 response.message = "Database connection error";
-               res.status(response.status).send(response);
+                res.status(response.status).send(response);
             } else {
                 if (!username) {
                     response.status = 400;
@@ -82,17 +82,17 @@ module.exports = {
                 } else if (!password) {
                     response.status = 401;
                     response.message = "Password could not be blank";
-                   res.status(response.status).send(response);
+                    res.status(response.status).send(response);
                 } else {
                     connection.query(userDao.getUsers, username, function (error, result) {
                         if (error) {
                             response.status = 500;
                             response.message = "Database connection error";
-                           res.status(response.status).send(response);
+                            res.status(response.status).send(response);
                         } else if (result.length === 0) {
                             response.status = 400;
                             response.message = "User not exist, please check your username";
-                           res.status(response.status).send(response);
+                            res.status(response.status).send(response);
                         } else {
                             bcrypt.compare(password, result[0].password).then(match => {
                                 if (match) {
@@ -111,11 +111,11 @@ module.exports = {
                                         username: username,
                                         token: token
                                     };
-                                   res.status(response.status).send(response)
+                                    res.status(response.status).send(response)
                                 } else {
                                     response.status = 400;
                                     response.message = "Password is not correct, please check and try again.";
-                                   res.status(response.status).send(response);
+                                    res.status(response.status).send(response);
                                 }
                             })
                         }

@@ -1,6 +1,7 @@
 package com.czxbnb.aurora.injection.module
 
 import com.czxbnb.aurora.BASE_URL
+import com.czxbnb.aurora.network.ActivityApi
 import com.czxbnb.aurora.network.AuthApi
 import com.czxbnb.aurora.network.PostApi
 import com.czxbnb.aurora.network.UnsafeHttpClient.getUnsafeOkHttpClient
@@ -41,6 +42,18 @@ object NetworkModule {
     @JvmStatic
     internal fun provideAuthApi(retrofit: Retrofit): AuthApi {
         return retrofit.create(AuthApi::class.java)
+    }
+
+    /**
+     * Provides the Activity service implementation.
+     * @param retrofit the Retrofit object used to instantiate the service
+     * @return the Activity service implementation.
+     */
+    @Provides
+    @Reusable
+    @JvmStatic
+    internal fun provideActivityApi(retrofit: Retrofit): ActivityApi {
+        return retrofit.create(ActivityApi::class.java)
     }
 
     /**

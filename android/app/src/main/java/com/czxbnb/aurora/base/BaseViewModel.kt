@@ -5,6 +5,7 @@ import com.czxbnb.aurora.injection.component.DaggerViewModelInjector
 import com.czxbnb.aurora.injection.component.ViewModelInjector
 import com.czxbnb.aurora.injection.module.NetworkModule
 import com.czxbnb.aurora.ui.auth.login.LoginViewModel
+import com.czxbnb.aurora.ui.home.HomeActivityViewModel
 import com.czxbnb.aurora.ui.home.HomeViewModel
 import com.czxbnb.aurora.ui.main.MainViewModel
 import com.czxbnb.aurora.ui.post.PostListViewModel
@@ -25,6 +26,7 @@ abstract class BaseViewModel : ViewModel() {
             is LoginViewModel -> injector.inject(this)
             is MainViewModel -> injector.inject(this)
             is HomeViewModel -> injector.inject(this)
+            is HomeActivityViewModel -> injector.inject(this)
         }
     }
 }
