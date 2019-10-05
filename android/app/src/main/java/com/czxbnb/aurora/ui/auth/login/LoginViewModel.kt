@@ -29,6 +29,15 @@ class LoginViewModel(val context: Context) : BaseViewModel() {
             return
         }
 
+        // Check the username and password
+        if (username == "") {
+            errorMessage.value = "Username cannot be blank"
+            return
+        } else if (password == "") {
+            errorMessage.value = "Password cannot be blank"
+            return
+        }
+
         // Perform login action
         subscription = authApi.login(username, password)
             .subscribeOn(Schedulers.io())

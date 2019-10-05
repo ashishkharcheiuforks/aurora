@@ -28,10 +28,12 @@ class LoginActivity : BaseActivity() {
             startActivity(intent)
         }
 
+        // Bind view model
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(LoginViewModel::class.java)
         binding.viewModel = viewModel
 
+        // Observe error message
         viewModel.errorMessage.observe(this, Observer { errorMessage ->
             if (errorMessage != null) {
                 showError(errorMessage)

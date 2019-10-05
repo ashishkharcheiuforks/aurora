@@ -2,6 +2,8 @@ package com.czxbnb.aurora.injection.component
 
 import com.czxbnb.aurora.injection.module.NetworkModule
 import com.czxbnb.aurora.ui.auth.login.LoginViewModel
+import com.czxbnb.aurora.ui.home.HomeViewModel
+import com.czxbnb.aurora.ui.main.MainViewModel
 import com.czxbnb.aurora.ui.post.PostListViewModel
 import dagger.Component
 import javax.inject.Singleton
@@ -23,6 +25,18 @@ interface ViewModelInjector {
      * @param loginViewModel LoginViewModel in which to inject the dependencies
      */
     fun inject(loginViewModel: LoginViewModel)
+
+    /**
+     * Injects required dependencies into the specified MainViewModel
+     * @param mainViewModel MainViewModel in which to inject the dependencies
+     */
+    fun inject(mainViewModel: MainViewModel)
+
+    /**
+     * Injects required dependencies into the specified HomeViewModel
+     * @param homeViewModel MainViewModel in which to inject the dependencies
+     */
+    fun inject(homeViewModel: HomeViewModel)
 
     @Component.Builder
     interface Builder {
