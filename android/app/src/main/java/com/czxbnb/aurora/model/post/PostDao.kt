@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
-interface PostDao{
+interface PostDao {
     @get:Query("SELECT * FROM post")
     val all: List<Post>
 

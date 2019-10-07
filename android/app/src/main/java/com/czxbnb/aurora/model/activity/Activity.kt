@@ -1,10 +1,14 @@
 package com.czxbnb.aurora.model.activity
 
-data class Activity (
-    val id: String,
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class Activity(
+    @PrimaryKey val id: String,
     val title: String,
     val content: String,
-    val time: String,
+    var time: String,
     val duration: String,
     val requirements: String,
     val image: String

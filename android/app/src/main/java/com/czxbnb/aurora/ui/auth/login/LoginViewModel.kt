@@ -12,7 +12,16 @@ import com.czxbnb.aurora.network.AuthApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import retrofit2.HttpException
 import javax.inject.Inject
+import okhttp3.ResponseBody
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import retrofit2.adapter.rxjava2.Result.response
+import android.R.string
+import org.json.JSONObject
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import com.czxbnb.aurora.ERROR_TAG
+
 
 class LoginViewModel(val context: Context) : BaseViewModel() {
     @Inject
@@ -45,7 +54,7 @@ class LoginViewModel(val context: Context) : BaseViewModel() {
             .doOnSubscribe { onLoginStart() }
             .doOnTerminate { onLoginFinish() }
             .subscribe(
-                { result -> onLoginSuccess(result) },
+                { result -> onLoginSuccess(result.data) },
                 { error -> onLoginError(error) }
             )
     }
@@ -71,8 +80,9 @@ class LoginViewModel(val context: Context) : BaseViewModel() {
         context.startActivity(intent)
     }
 
-    private fun onLoginError(error: Throwable) {
-        errorMessage.value = error.message
+    private fun onLoginError(e: Throwable) {
+        val errorBody = JSONObject((e as HttpException).response().errorBody()!!.string())
+        errorMessage.value = errorBody.getString(ERROR_TAG)
         isLoggingIn = false
     }
 }

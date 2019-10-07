@@ -1,4 +1,4 @@
-package com.czxbnb.aurora.injection.module
+package com.czxbnb.aurora.injection
 
 import com.czxbnb.aurora.BASE_URL
 import com.czxbnb.aurora.network.ActivityApi
@@ -12,14 +12,11 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-
 
 
 @Module
 @Suppress("unused")
-object NetworkModule {
+object NetworkInjector {
     /**
      * Provides the Post service implementation.
      * @param retrofit the Retrofit object used to instantiate the service

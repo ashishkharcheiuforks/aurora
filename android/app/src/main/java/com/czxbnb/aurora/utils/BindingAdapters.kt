@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.czxbnb.aurora.utils.extension.getParentActivity
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.Glide
-
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 
 @BindingAdapter("adapter")
@@ -40,6 +40,8 @@ fun setMutableText(view: TextView, text: MutableLiveData<String>?) {
 @BindingAdapter("mutableImage")
 fun setMutableImage(view: ImageView, imageUrl: String) {
     Glide.with(view.context)
-        .load(imageUrl).apply(RequestOptions().circleCrop())
+        .load(imageUrl)
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+        .apply(RequestOptions())
         .into(view)
 }

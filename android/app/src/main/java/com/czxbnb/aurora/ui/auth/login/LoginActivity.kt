@@ -22,12 +22,6 @@ class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // If token exist, redirect to main activity
-        if (SharedPreferenceManager.getInstance(this)?.token != null) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-
         // Bind view model
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(LoginViewModel::class.java)

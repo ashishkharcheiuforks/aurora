@@ -97,22 +97,30 @@
 
                 </LinearLayout>
 
-                <HorizontalScrollView
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_middle"
-                    android:scrollbars="none">
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_activity"
+                    android:layout_height="wrap_content">
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_middle"
+                        android:scrollbars="none">
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_activity"
+                            adapter="@{viewModel.getHomeActivityAdapter()}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/spacing_medium"
+                            android:layout_marginRight="@dimen/spacing_medium"
+                            android:orientation="horizontal" />
+                    </HorizontalScrollView>
+
+                    <ProgressBar
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent"
-                        adapter="@{viewModel.getHomeActivityAdapter()}"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
-                </HorizontalScrollView>
+                        android:layout_gravity="center"
+                        app:mutableVisibility="@{viewModel.getActivityLoadingVisibility()}" />
+                </FrameLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

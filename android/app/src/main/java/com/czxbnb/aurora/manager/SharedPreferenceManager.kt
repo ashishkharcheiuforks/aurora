@@ -9,7 +9,7 @@ class SharedPreferenceManager private constructor(private val context: Context) 
 
     var token: String?
         get() = mPrefs.getString(KEY_TOKEN, null)
-        set(token) = mPrefs.edit().putString(KEY_TOKEN, token).apply()
+        set(token) = mPrefs.edit().putString(KEY_TOKEN, "Bearer $token").apply()
 
     init {
         mPrefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)

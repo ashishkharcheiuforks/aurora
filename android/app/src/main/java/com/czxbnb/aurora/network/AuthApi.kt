@@ -1,5 +1,6 @@
 package com.czxbnb.aurora.network
 
+import com.czxbnb.aurora.base.BaseData
 import com.czxbnb.aurora.model.user.User
 import io.reactivex.Observable
 import retrofit2.http.Field
@@ -19,5 +20,5 @@ interface AuthApi {
     fun login(
         @Field("username") username: String,
         @Field("password") password: String
-    ): Observable<User>
+    ): Observable<BaseData<User>>
 }

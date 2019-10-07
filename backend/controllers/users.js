@@ -125,16 +125,4 @@ module.exports = {
             }
         })
     },
-
-    getAll: (req, res) => {
-        mongoose.connect(config.connUri, {useNewUrlParser: true}, (err) => {
-            User.find({}, (err, users) => {
-                if (!err) {
-                    res.send(users)
-                } else {
-                    console.log('Error', err)
-                }
-            })
-        })
-    }
 };

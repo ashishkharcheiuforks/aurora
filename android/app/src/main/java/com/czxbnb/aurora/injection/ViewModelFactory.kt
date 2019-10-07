@@ -18,7 +18,7 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
         when {
             modelClass.isAssignableFrom(PostListViewModel::class.java) -> {
                 val db =
-                    Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "posts")
+                    Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "aurora")
                         .build()
                 @Suppress("UNCHECKED_CAST")
                 return PostListViewModel(db.postDao()) as T
@@ -32,8 +32,10 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
                 return MainViewModel(context) as T
             }
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
+                val db = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "aurora")
+                    .build()
                 @Suppress("UNCHECKED_CAST")
-                return HomeViewModel(context) as T
+                return HomeViewModel(context, db.activityDao()) as T
             }
             modelClass.isAssignableFrom(HomeActivityViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")

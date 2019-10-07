@@ -1,6 +1,5 @@
-package com.czxbnb.aurora.injection.component
+package com.czxbnb.aurora.injection
 
-import com.czxbnb.aurora.injection.module.NetworkModule
 import com.czxbnb.aurora.ui.auth.login.LoginViewModel
 import com.czxbnb.aurora.ui.home.HomeActivityViewModel
 import com.czxbnb.aurora.ui.home.HomeViewModel
@@ -13,7 +12,7 @@ import javax.inject.Singleton
  * Component providing inject() methods for presenters.
  */
 @Singleton
-@Component(modules = [(NetworkModule::class)])
+@Component(modules = [(NetworkInjector::class)])
 interface ViewModelInjector {
     /**
      * Injects required dependencies into the specified PostListViewModel.
@@ -49,6 +48,6 @@ interface ViewModelInjector {
     interface Builder {
         fun build() : ViewModelInjector
 
-        fun networkModule(networkModule: NetworkModule): Builder
+        fun networkModule(networkModule: NetworkInjector): Builder
     }
 }

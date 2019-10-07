@@ -9,7 +9,7 @@ const stage = require('../config/config')[environment];
 const pool = mysql.createPool(dbConfig.mysql);
 
 module.exports = {
-    getActivities: (req, res) => {
+    getAll: (req, res) => {
         pool.getConnection(function (error, connection) {
             let response = {};
             if (error) {
@@ -31,6 +31,44 @@ module.exports = {
                     }
                 })
             }
+        })
+    },
+    getActivity: (req, res) => {
+        pool.getConnection(function (error, connection) {
+            let response = {};
+            if (error) {
+                // If connection error, return error message
+                response.status = 500;
+                response.message = "Database connection error";
+                res.status(response.status).send(response);
+            } else {
+                let {id} = req.body;
+                if (!id) {
+                    response.status = 400;
+                    response.message = "Activity id could not be blank";
+                } else {
+                    connection.query(activityDao.getActivity, [id],
+                        function (error, result) {
+                            if (error) {
+                                response.status = 500;
+                                response.message = "Unable to get activity information, please try again later";
+                                res.status(response.status).send(response);
+                            } else {
+                                if (!result) {
+                                    response.status = 400;
+                                    response.message = "Activity not exist";
+                                    res.status(response.status).send(response);
+                                } else {
+                                    response.status = 200;
+                                    response.message = "Activity found";
+                                    response.data = result;
+                                    res.status(response.status).send(response);
+                                }
+                            }
+                        })
+                }
+            }
+
         })
     }
 };

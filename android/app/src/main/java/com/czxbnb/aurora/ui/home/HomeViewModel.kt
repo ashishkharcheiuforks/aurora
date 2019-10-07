@@ -1,7 +1,9 @@
 package com.czxbnb.aurora.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
@@ -13,24 +15,41 @@ import com.czxbnb.aurora.network.ActivityApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import com.czxbnb.aurora.model.activity.ActivityDao
+import io.reactivex.Observable
+import java.util.*
+import retrofit2.adapter.rxjava2.Result.response
+import android.R.string
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import com.czxbnb.aurora.ERROR_TAG
+import org.json.JSONObject
+import retrofit2.HttpException
 
-class HomeViewModel(val context: Context) : BaseViewModel() {
+
+class HomeViewModel(
+    val context: Context,
+    private val activityDao: ActivityDao
+) : BaseViewModel() {
     @Inject
     lateinit var activityApi: ActivityApi
     private lateinit var activitySubscription: Disposable
     val errorMessage: MutableLiveData<String> = MutableLiveData()
-    val activityLoadingVisibility = MutableLiveData<Int>().apply { postValue(View.GONE) }
+    val activityLoadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val homeActivityAdapter: HomeActivityAdapter = HomeActivityAdapter()
 
     init {
         getActivityList()
     }
 
-    fun getActivityList() {
+    private fun getActivityList() {
         // get the activity list
         activitySubscription =
-            activityApi.getActivities("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiY3p4Ym5iIiwiaWF0IjoxNTcwMjc1ODI0LCJleHAiOjE1NzA0NDg2MjQsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjMwMDAifQ.oMRJBMGC6tkjkslVIfrSPca2WAWVYw1Y1GC-efAnSrI")
+            activityApi.getActivities(SharedPreferenceManager.getInstance(context)?.token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { onLoadActivityListStart() }
@@ -49,12 +68,14 @@ class HomeViewModel(val context: Context) : BaseViewModel() {
         activityLoadingVisibility.value = View.GONE
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun onLoadActivityListSuccess(activityList: BaseData<List<Activity>>) {
         homeActivityAdapter.updateActivityList(activityList.data)
     }
 
-    private fun onLoadActivityListError(error: Throwable) {
-        errorMessage.value = error.message
+    private fun onLoadActivityListError(e: Throwable) {
+        val errorBody = JSONObject((e as HttpException).response().errorBody()!!.string())
+        errorMessage.value = errorBody.getString(ERROR_TAG)
     }
 
     override fun onCleared() {
