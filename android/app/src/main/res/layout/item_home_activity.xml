@@ -1,60 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.czxbnb.aurora.ui.home.HomeActivityViewModel" />
     </data>
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
-    android:orientation="vertical"
-    tools:ignore="UselessParent">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="180dp"
-        android:layout_height="120dp"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="6dp"
-        app:cardElevation="1dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="false">
-
-        <ImageView
-            android:id="@+id/iv_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            mutableImage="@{viewModel.getActivityImage()}"
-            android:scaleType="centerCrop" />
-
-    </androidx.cardview.widget.CardView>
-
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/spacing_middle"
-        android:layout_marginTop="@dimen/spacing_medium"
-        android:layout_marginRight="@dimen/spacing_middle"
-        app:mutableText="@{viewModel.getActivityTitle()}"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/grey_80"
-        app:fontFamily="sans-serif-medium" />
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/spacing_middle"
-        android:layout_marginTop="@dimen/spacing_small"
-        android:layout_marginRight="@dimen/spacing_middle"
-        app:mutableText="@{viewModel.getActivityDate()}"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="@color/grey_40" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="180dp"
+            android:layout_height="120dp"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="1dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="false">
 
-</LinearLayout>
+            <ImageView
+                android:id="@+id/iv_image"
+                mutableImage="@{viewModel.getActivityImage()}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_middle"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_middle"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/grey_80"
+            app:fontFamily="sans-serif-medium"
+            app:mutableText="@{viewModel.getActivityTitle()}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_middle"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginRight="@dimen/spacing_middle"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/grey_40"
+            app:mutableText="@{viewModel.getActivityDate()}" />
+
+    </LinearLayout>
 </layout>

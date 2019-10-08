@@ -11,7 +11,7 @@ const stage = require('../config/config')[environment];
 const pool = mysql.createPool(dbConfig.mysql);
 
 module.exports = {
-    add: (req, res) => {
+    register: (req, res) => {
         pool.getConnection(function (error, connection) {
             let response = {};
             if (error) {
@@ -19,6 +19,7 @@ module.exports = {
                 response.status = 500;
                 response.message = "Database connection error";
                 res.status(response.status).send(response);
+                pool.releaseConnection(connection);
             } else {
                 // Grab the input from request
                 let {username, password, nick_name} = req.body;
@@ -30,6 +31,7 @@ module.exports = {
                         response.status = 500;
                         response.message = "Unable to register, please change password and try again";
                         res.status(response.status).send(response);
+                        pool.releaseConnection(connection);
                     } else {
                         connection.query(userDao.getUsers, username, function (error, result) {
                             if (result.length > 0) {
@@ -37,10 +39,12 @@ module.exports = {
                                 response.status = 400;
                                 response.message = "User already exist, please change username and try again";
                                 res.status(response.status).send(response);
+                                pool.releaseConnection(connection)
                             } else {
                                 password = hash;
                                 // Save the record to the database
-                                connection.query(userDao.register, [username, password, nick_name],
+                                let timestamp = Date.now();
+                                connection.query(userDao.register, [username, password, nick_name, timestamp, timestamp],
                                     function (error, result) {
                                         if (error) {
                                             response.status = 500;
@@ -55,6 +59,7 @@ module.exports = {
                                             };
                                             res.status(response.status).send(response);
                                         }
+                                        pool.releaseConnection(connection);
                                     });
                             }
                         });

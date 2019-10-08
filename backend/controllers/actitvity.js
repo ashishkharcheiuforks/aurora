@@ -17,6 +17,7 @@ module.exports = {
                 response.status = 500;
                 response.message = "Database connection error";
                 res.status(response.status).send(response);
+                pool.releaseConnection(connection);
             } else {
                 connection.query(activityDao.queryAll, function (error, result) {
                     if (error) {
@@ -29,6 +30,7 @@ module.exports = {
                         response.data = result;
                         res.status(response.status).send(response)
                     }
+                    pool.releaseConnection(connection);
                 })
             }
         })
@@ -41,11 +43,13 @@ module.exports = {
                 response.status = 500;
                 response.message = "Database connection error";
                 res.status(response.status).send(response);
+                pool.releaseConnection(connection);
             } else {
-                let {id} = req.body;
+                let {id} = req.query.id;
                 if (!id) {
                     response.status = 400;
                     response.message = "Activity id could not be blank";
+                    pool.releaseConnection(connection);
                 } else {
                     connection.query(activityDao.getActivity, [id],
                         function (error, result) {
@@ -65,10 +69,10 @@ module.exports = {
                                     res.status(response.status).send(response);
                                 }
                             }
+                            pool.releaseConnection(connection);
                         })
                 }
             }
-
         })
     }
 };

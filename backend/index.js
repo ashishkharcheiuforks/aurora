@@ -36,8 +36,8 @@ let handler = function (req, res) {
 
 let httpsServer = https.createServer(credentials, app);
 
-httpsServer.listen(`${stage.port}`, () => {
-    console.log(`Server now listening at localhost:${stage.port}`);
+httpsServer.listen("3000", () => {
+    console.log("Server now listening at localhost: 3000");
 });
 
 module.exports = app;
