@@ -31,4 +31,6 @@ abstract class BaseViewModel : ViewModel() {
             is ActivityViewModel -> injector.inject(this)
         }
     }
+
+
 }

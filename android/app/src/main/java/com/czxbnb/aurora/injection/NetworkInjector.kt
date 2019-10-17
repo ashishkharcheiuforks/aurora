@@ -1,5 +1,6 @@
 package com.czxbnb.aurora.injection
 
+import android.annotation.SuppressLint
 import com.czxbnb.aurora.BASE_URL
 import com.czxbnb.aurora.network.ActivityApi
 import com.czxbnb.aurora.network.AuthApi
@@ -72,6 +73,7 @@ object NetworkInjector {
         try {
             // Create a trust manager that does not validate certificate chains
             val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
+                @SuppressLint("TrustAllX509TrustManager")
                 @Throws(CertificateException::class)
                 override fun checkClientTrusted(
                     chain: Array<java.security.cert.X509Certificate>,
@@ -79,6 +81,7 @@ object NetworkInjector {
                 ) {
                 }
 
+                @SuppressLint("TrustAllX509TrustManager")
                 @Throws(CertificateException::class)
                 override fun checkServerTrusted(
                     chain: Array<java.security.cert.X509Certificate>,

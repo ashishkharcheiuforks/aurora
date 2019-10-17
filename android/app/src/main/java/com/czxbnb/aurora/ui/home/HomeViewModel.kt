@@ -27,6 +27,7 @@ import retrofit2.adapter.rxjava2.Result.response
 import android.R.string
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import com.czxbnb.aurora.ERROR_TAG
+import com.google.gson.JsonParseException
 import org.json.JSONObject
 import retrofit2.HttpException
 import java.lang.ClassCastException
@@ -78,9 +79,12 @@ class HomeViewModel(
         try {
             val errorBody = JSONObject((e as HttpException).response().errorBody()!!.string())
             errorMessage.value = errorBody.getString(ERROR_TAG)
-        } catch (exception: ClassCastException) {
+        } catch (exception: ClassCastException ) {
             exception.printStackTrace()
-        } finally {
+        } catch (exception: JsonParseException) {
+            exception.printStackTrace()
+        }
+        finally {
             errorMessage.value = e.message
         }
     }

@@ -19,11 +19,9 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         when {
             modelClass.isAssignableFrom(PostListViewModel::class.java) -> {
-                val db =
-                    Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "aurora")
-                        .build()
+                val db = AppDatabase.getInstance(context)
                 @Suppress("UNCHECKED_CAST")
-                return PostListViewModel(db.postDao()) as T
+                return PostListViewModel(db!!.postDao()) as T
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
@@ -34,20 +32,18 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
                 return MainViewModel(context) as T
             }
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-                val db = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "aurora")
-                    .build()
+                val db = AppDatabase.getInstance(context)
                 @Suppress("UNCHECKED_CAST")
-                return HomeViewModel(context, db.activityDao()) as T
+                return HomeViewModel(context, db!!.activityDao()) as T
             }
             modelClass.isAssignableFrom(HomeActivityViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
                 return HomeActivityViewModel() as T
             }
             modelClass.isAssignableFrom(ActivityViewModel::class.java) -> {
-                val db = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "aurora")
-                    .build()
+                val db = AppDatabase.getInstance(context)
                 @Suppress("UNCHECKED_CAST")
-                return ActivityViewModel(context, db.activityDao()) as T
+                return ActivityViewModel(context, db!!.activityDao()) as T
             }
             modelClass.isAssignableFrom(ActivityItemViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
