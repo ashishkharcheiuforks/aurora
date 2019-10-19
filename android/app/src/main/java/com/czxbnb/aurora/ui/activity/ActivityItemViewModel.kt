@@ -5,11 +5,13 @@ import com.czxbnb.aurora.base.BaseViewModel
 import com.czxbnb.aurora.model.activity.Activity
 
 class ActivityItemViewModel : BaseViewModel() {
+    private lateinit var activity: Activity
     private val activityTitle = MutableLiveData<String>()
     private val activityDate = MutableLiveData<String>()
     private val activityImage = MutableLiveData<String>()
 
     fun bind(activity: Activity) {
+        this.activity = activity
         activityTitle.value = activity.title
         activityDate.value = activity.time
         activityImage.value = activity.image
@@ -25,5 +27,9 @@ class ActivityItemViewModel : BaseViewModel() {
 
     fun getActivityImage(): MutableLiveData<String> {
         return activityImage
+    }
+
+    fun onActivityClick() {
+
     }
 }
