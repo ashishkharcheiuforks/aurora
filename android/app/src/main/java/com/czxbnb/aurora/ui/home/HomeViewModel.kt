@@ -26,6 +26,7 @@ import java.util.*
 import retrofit2.adapter.rxjava2.Result.response
 import android.R.string
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.util.Log
 import com.czxbnb.aurora.ERROR_TAG
 import com.google.gson.JsonParseException
 import org.json.JSONObject
@@ -76,17 +77,8 @@ class HomeViewModel(
     }
 
     private fun onLoadActivityListError(e: Throwable) {
-        try {
-            val errorBody = JSONObject((e as HttpException).response().errorBody()!!.string())
-            errorMessage.value = errorBody.getString(ERROR_TAG)
-        } catch (exception: ClassCastException ) {
-            exception.printStackTrace()
-        } catch (exception: JsonParseException) {
-            exception.printStackTrace()
-        }
-        finally {
-            errorMessage.value = e.message
-        }
+        val errorBody = JSONObject((e as HttpException).response().errorBody()!!.string())
+        errorMessage.value = errorBody.getString(ERROR_TAG)
     }
 
     override fun onCleared() {
