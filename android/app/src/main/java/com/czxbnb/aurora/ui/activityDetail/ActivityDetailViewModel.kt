@@ -1,7 +1,9 @@
 package com.czxbnb.aurora.ui.activityDetail
 
 import android.content.Context
+import android.util.Log
 import android.view.View
+import android.view.animation.AccelerateInterpolator
 import androidx.lifecycle.MutableLiveData
 import com.czxbnb.aurora.ERROR_TAG
 import com.czxbnb.aurora.base.BaseData
@@ -22,7 +24,7 @@ class ActivityDetailViewModel(val context: Context) : BaseViewModel() {
     private lateinit var subscription: Disposable
     val errorMessage: MutableLiveData<String> = MutableLiveData()
     val loadingVisibility = MutableLiveData<Int>().apply { postValue(View.GONE) }
-    val imageUrl =  MutableLiveData<String>().apply { postValue("https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg") }
+    private val activity : MutableLiveData<Activity> = MutableLiveData()
 
     fun loadActivity(id: String?) {
         if (id == "") {
@@ -34,7 +36,7 @@ class ActivityDetailViewModel(val context: Context) : BaseViewModel() {
                 .doOnSubscribe { onLoadActivityListStart() }
                 .doOnTerminate { onLoadActivityListFinish() }
                 .subscribe(
-                    { result -> onLoadActivitySuccess(result.data[0]) },
+                    { result -> onLoadActivitySuccess(result) },
                     { error -> onLoadActivityError(error) }
                 )
 
@@ -48,14 +50,17 @@ class ActivityDetailViewModel(val context: Context) : BaseViewModel() {
         loadingVisibility.value = View.GONE
     }
 
-    private fun onLoadActivitySuccess(loadedActivity: Activity) {
-        val activity = loadedActivity
-        imageUrl.value = activity.image
+    private fun onLoadActivitySuccess(loadedActivity: BaseData<List<Activity>>) {
+        activity.value = loadedActivity.data[0]
     }
 
     private fun onLoadActivityError(e: Throwable) {
         val errorBody = JSONObject((e as HttpException).response().errorBody()!!.string())
         errorMessage.value = errorBody.getString(ERROR_TAG)
+    }
+
+    fun getActivity(): MutableLiveData<Activity> {
+        return activity
     }
 
     override fun onCleared() {

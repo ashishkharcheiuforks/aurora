@@ -3,6 +3,7 @@ package com.czxbnb.aurora.ui.activityDetail
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.czxbnb.aurora.R
 import com.czxbnb.aurora.base.BaseActivity
@@ -19,8 +20,10 @@ class ActivityDetailActivity : BaseActivity() {
 
         // Bind view model
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
-        viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(ActivityDetailViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, ViewModelFactory(this))
+            .get(ActivityDetailViewModel::class.java)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         // Initialize toolbar
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)

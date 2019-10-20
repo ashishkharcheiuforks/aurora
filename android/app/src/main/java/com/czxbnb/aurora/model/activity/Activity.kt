@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class Activity(
     @PrimaryKey val id: String,
-    val title: String,
+    var title: String,
     val content: String,
     var time: String,
     val duration: String,

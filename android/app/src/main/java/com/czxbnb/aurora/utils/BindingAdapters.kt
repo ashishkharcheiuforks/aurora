@@ -1,5 +1,6 @@
 package com.czxbnb.aurora.utils
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -38,7 +39,7 @@ fun setMutableText(view: TextView, text: MutableLiveData<String>?) {
 }
 
 @BindingAdapter("mutableImage")
-fun setMutableImage(view: ImageView, imageUrl: String) {
+fun setMutableImage(view: ImageView, imageUrl: String?) {
     Glide.with(view.context)
         .load(imageUrl)
         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
