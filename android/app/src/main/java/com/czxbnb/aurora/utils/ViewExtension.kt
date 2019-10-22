@@ -1,4 +1,4 @@
-package com.czxbnb.aurora.utils.extension
+package com.czxbnb.aurora.utils
 
 import android.content.ContextWrapper
 import android.view.View

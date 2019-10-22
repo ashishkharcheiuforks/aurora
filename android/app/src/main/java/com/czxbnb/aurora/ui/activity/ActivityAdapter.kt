@@ -33,7 +33,7 @@ class ActivityAdapter : RecyclerView.Adapter<ActivityAdapter.ViewHolder>() {
         // Set onclick listener
         binding.cvItem.setOnClickListener {
             val intent = Intent(context, ActivityDetailActivity::class.java)
-            intent.putExtra("id", activityList[position].id)
+            intent.putExtra("activity", activityList[position])
             context.startActivity(intent)
         }
     }

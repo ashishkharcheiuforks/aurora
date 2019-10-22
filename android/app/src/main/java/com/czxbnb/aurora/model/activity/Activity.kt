@@ -2,6 +2,7 @@ package com.czxbnb.aurora.model.activity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity
 data class Activity(
@@ -12,4 +13,4 @@ data class Activity(
     val duration: String,
     val requirements: String,
     val image: String
-)
+) : Serializable

@@ -21,42 +21,13 @@ import javax.inject.Inject
 class ActivityDetailViewModel(val context: Context) : BaseViewModel() {
     @Inject
     lateinit var activityApi: ActivityApi
-    private lateinit var subscription: Disposable
+    // private lateinit var subscription: Disposable
     val errorMessage: MutableLiveData<String> = MutableLiveData()
     val loadingVisibility = MutableLiveData<Int>().apply { postValue(View.GONE) }
     private val activity : MutableLiveData<Activity> = MutableLiveData()
 
-    fun loadActivity(id: String?) {
-        if (id == "") {
-            return
-        }
-        subscription = activityApi.getActivityById(SharedPreferenceManager.getInstance(context)?.token, id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { onLoadActivityListStart() }
-                .doOnTerminate { onLoadActivityListFinish() }
-                .subscribe(
-                    { result -> onLoadActivitySuccess(result) },
-                    { error -> onLoadActivityError(error) }
-                )
-
-    }
-
-    private fun onLoadActivityListStart() {
-        loadingVisibility.value = View.VISIBLE
-    }
-
-    private fun onLoadActivityListFinish() {
-        loadingVisibility.value = View.GONE
-    }
-
-    private fun onLoadActivitySuccess(loadedActivity: BaseData<List<Activity>>) {
-        activity.value = loadedActivity.data[0]
-    }
-
-    private fun onLoadActivityError(e: Throwable) {
-        val errorBody = JSONObject((e as HttpException).response().errorBody()!!.string())
-        errorMessage.value = errorBody.getString(ERROR_TAG)
+    fun loadActivity(activity : Activity) {
+        this.activity.value = activity
     }
 
     fun getActivity(): MutableLiveData<Activity> {
@@ -65,6 +36,6 @@ class ActivityDetailViewModel(val context: Context) : BaseViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        subscription.dispose()
+        //subscription.dispose()
     }
 }
