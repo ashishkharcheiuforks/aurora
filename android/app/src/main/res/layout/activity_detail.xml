@@ -63,6 +63,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/ll_container_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -118,6 +119,145 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_container_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="?attr/actionBarSize"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@android:color/transparent"
+                        android:tint="@color/grey_60"
+                        app:srcCompat="@drawable/ic_time" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/time"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/grey_80" />
+
+                    <View
+                        android:layout_width="@dimen/spacing_large"
+                        android:layout_height="wrap_content" />
+
+                    <ImageButton
+                        android:id="@+id/btn_time"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="@color/grey_60"
+                        app:srcCompat="@drawable/ic_arrow_drop" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="?attr/actionBarSize"
+                    android:layout_marginEnd="@dimen/spacing_smlarge"
+                    android:layout_marginBottom="@dimen/spacing_middle"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/spacing_medium"
+                    android:paddingBottom="@dimen/spacing_large"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/spacing_medium"
+                        android:text="@{`Time: ` + viewModel.getActivity().time}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{`Duration: ` + viewModel.getActivity().duration}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_container_requirement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="?attr/actionBarSize"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@android:color/transparent"
+                        android:tint="@color/grey_60"
+                        app:srcCompat="@drawable/ic_tick" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/requirements"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/grey_80" />
+
+                    <View
+                        android:layout_width="@dimen/spacing_large"
+                        android:layout_height="wrap_content" />
+
+                    <ImageButton
+                        android:id="@+id/btn_requirement"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="@color/grey_60"
+                        app:srcCompat="@drawable/ic_arrow_drop" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_requirement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="?attr/actionBarSize"
+                    android:layout_marginEnd="@dimen/spacing_smlarge"
+                    android:layout_marginBottom="@dimen/spacing_middle"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/spacing_medium"
+                    android:paddingBottom="@dimen/spacing_large"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/spacing_medium"
+                        android:text="@{viewModel.getActivity().requirements}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_enroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacing_middle"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:text="@string/enroll"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_button"
+                    android:background="@color/colorPrimary"
+                    android:minHeight="@dimen/btn_height"
+                    android:focusable="true"
+                    tools:ignore="UnusedAttribute" />
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>

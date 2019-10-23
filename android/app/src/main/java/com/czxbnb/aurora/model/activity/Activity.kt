@@ -11,6 +11,6 @@ data class Activity(
     val content: String,
     var time: String,
     val duration: String,
-    val requirements: String,
+    var requirements: String,
     val image: String
 ) : Serializable

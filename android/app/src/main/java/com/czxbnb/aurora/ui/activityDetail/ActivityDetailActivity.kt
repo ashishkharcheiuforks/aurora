@@ -2,6 +2,7 @@ package com.czxbnb.aurora.ui.activityDetail
 
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
@@ -51,14 +52,29 @@ class ActivityDetailActivity : BaseActivity() {
         viewModel.loadActivity(activity)
         title = activity.title
 
+        // Format content
+        activity.requirements = Html.fromHtml(activity.requirements).toString()
+
         // Add listeners for buttons
         addListenersForButtons()
     }
 
     private fun addListenersForButtons() {
-        btn_description.setOnClickListener {view->
-            toggleSection(view, ll_description)
+        ll_container_description.setOnClickListener {
+            toggleSection(btn_description, ll_description)
         }
+
+        ll_container_time.setOnClickListener {
+            toggleSection(btn_time, ll_time)
+        }
+
+        ll_container_requirement.setOnClickListener {
+            toggleSection(btn_requirement, ll_requirement)
+        }
+
+        toggleSection(btn_description, ll_description)
+        toggleSection(btn_time, ll_time)
+        toggleSection(btn_requirement, ll_requirement)
     }
 
     private fun toggleSection(bt: View, lyt: View) {

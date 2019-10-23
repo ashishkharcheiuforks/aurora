@@ -29,4 +29,9 @@
     <!-- specific spacing -->
     <dimen name="app_bar_height_image_view">250dp</dimen>
 
+    <!-- height -->
+    <dimen name="btn_height">40dp</dimen>
+
+    <dimen name="text_size_button">16sp</dimen>
+
 </resources>
