@@ -16,6 +16,12 @@ android {
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
     }
 
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+
     dataBinding {
         enabled = true
     }

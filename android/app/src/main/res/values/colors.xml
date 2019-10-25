@@ -320,6 +320,7 @@
     <color name="grey_1000">#1a1a1a</color>
 
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 
     <!--for random color generator -->
     <array name="mdcolor_random">

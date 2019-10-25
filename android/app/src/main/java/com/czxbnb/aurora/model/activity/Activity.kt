@@ -8,9 +8,12 @@ import java.io.Serializable
 data class Activity(
     @PrimaryKey val id: String,
     var title: String,
-    val content: String,
+    var content: String,
     var time: String,
-    val duration: String,
+    var duration: String,
     var requirements: String,
-    val image: String
+    var address: String,
+    var lat: Double,
+    var lng: Double,
+    var image: String
 ) : Serializable

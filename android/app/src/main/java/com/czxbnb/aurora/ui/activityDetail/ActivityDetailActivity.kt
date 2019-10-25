@@ -5,17 +5,19 @@ import android.os.Bundle
 import android.text.Html
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.czxbnb.aurora.R
 import com.czxbnb.aurora.base.BaseActivity
 import com.czxbnb.aurora.databinding.ActivityDetailBinding
 import com.czxbnb.aurora.injection.ViewModelFactory
 import com.czxbnb.aurora.model.activity.Activity
+import com.czxbnb.aurora.utils.Keys
 import com.czxbnb.aurora.utils.ViewAnimation
 import com.czxbnb.aurora.utils.ViewUtils
 import kotlinx.android.synthetic.main.activity_detail.*
+
 
 class ActivityDetailActivity : BaseActivity() {
     private lateinit var binding: ActivityDetailBinding
