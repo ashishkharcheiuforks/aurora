@@ -5,24 +5,28 @@ import android.os.Bundle
 import android.text.Html
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.czxbnb.aurora.R
 import com.czxbnb.aurora.base.BaseActivity
 import com.czxbnb.aurora.databinding.ActivityDetailBinding
 import com.czxbnb.aurora.injection.ViewModelFactory
 import com.czxbnb.aurora.model.activity.Activity
-import com.czxbnb.aurora.utils.Keys
-import com.czxbnb.aurora.utils.ViewAnimation
-import com.czxbnb.aurora.utils.ViewUtils
+import com.czxbnb.aurora.view.ViewAnimation
+import com.czxbnb.aurora.view.ViewUtils
+import com.google.android.gms.maps.*
 import kotlinx.android.synthetic.main.activity_detail.*
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.LatLng
 
 
-class ActivityDetailActivity : BaseActivity() {
+class ActivityDetailActivity : BaseActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityDetailBinding
     private lateinit var viewModel: ActivityDetailViewModel
     private lateinit var activity: Activity
+    private lateinit var googleMap: GoogleMap
+    private lateinit var supportMapFragment: SupportMapFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,10 +59,15 @@ class ActivityDetailActivity : BaseActivity() {
         title = activity.title
 
         // Format content
+        activity.content = Html.fromHtml(activity.content).toString()
         activity.requirements = Html.fromHtml(activity.requirements).toString()
 
         // Add listeners for buttons
         addListenersForButtons()
+
+        // Initialize map
+        supportMapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        supportMapFragment.getMapAsync(this)
     }
 
     private fun addListenersForButtons() {
@@ -66,17 +75,36 @@ class ActivityDetailActivity : BaseActivity() {
             toggleSection(btn_description, ll_description)
         }
 
+        btn_description.setOnClickListener {
+            toggleSection(btn_description, ll_description)
+        }
+
         ll_container_time.setOnClickListener {
             toggleSection(btn_time, ll_time)
+        }
+
+        btn_time.setOnClickListener {
+            toggleSection(btn_time, ll_time)
+        }
+
+        ll_container_location.setOnClickListener {
+            toggleSection(btn_location, ll_location)
+        }
+
+        btn_location.setOnClickListener {
+            toggleSection(btn_location, ll_location)
         }
 
         ll_container_requirement.setOnClickListener {
             toggleSection(btn_requirement, ll_requirement)
         }
 
+        btn_requirement.setOnClickListener {
+            toggleSection(btn_requirement, ll_requirement)
+        }
+
         toggleSection(btn_description, ll_description)
         toggleSection(btn_time, ll_time)
-        toggleSection(btn_requirement, ll_requirement)
     }
 
     private fun toggleSection(bt: View, lyt: View) {
@@ -100,5 +128,19 @@ class ActivityDetailActivity : BaseActivity() {
             view.animate().setDuration(200).rotation(0f)
             false
         }
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        this.googleMap = googleMap
+
+        // Set google maps fragment attributes
+        this.googleMap.uiSettings.setAllGesturesEnabled(false)
+        this.googleMap.uiSettings.isMapToolbarEnabled = true
+        // Get location
+        viewModel.getActivity().observe(this, Observer { activity ->
+            val location = LatLng(activity.lat, activity.lng)
+            this.googleMap.addMarker(MarkerOptions().position(location).title(activity.title))
+            this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 18.0f))
+        })
     }
 }

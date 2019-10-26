@@ -6,3 +6,4 @@
 /backend/node_modules
 /frontend/node_modules
 /android/app/src/main/cpp/native-lib.cpp
+/android/app/src/main/res/values/google_maps_api.xml

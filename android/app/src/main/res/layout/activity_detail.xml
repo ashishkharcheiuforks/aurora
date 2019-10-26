@@ -187,6 +187,73 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_container_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="?attr/actionBarSize"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@android:color/transparent"
+                        android:tint="@color/grey_60"
+                        app:srcCompat="@drawable/ic_direction" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/location"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/grey_80" />
+
+                    <View
+                        android:layout_width="@dimen/spacing_large"
+                        android:layout_height="wrap_content" />
+
+                    <ImageButton
+                        android:id="@+id/btn_location"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="@color/grey_60"
+                        app:srcCompat="@drawable/ic_arrow_drop" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_smlarge"
+                    android:layout_marginBottom="@dimen/spacing_middle"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/spacing_medium"
+                    android:paddingBottom="@dimen/spacing_large"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_smlarge"
+                        android:layout_marginBottom="@dimen/spacing_middle"
+                        android:paddingBottom="@dimen/spacing_medium"
+                        android:text="@{`Address: ` + viewModel.getActivity().address}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                    <fragment
+                        android:id="@+id/map"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_marginStart="@dimen/spacing_smlarge"
+                        tools:context=".ui.activityDetail.ActivityDetailActivity" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/ll_container_requirement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -248,15 +315,15 @@
                     android:id="@+id/btn_enroll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/spacing_middle"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:layout_margin="@dimen/spacing_mlarge"
+                    android:background="@color/colorPrimary"
                     android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:minHeight="@dimen/btn_height"
                     android:text="@string/enroll"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_button"
-                    android:background="@color/colorPrimary"
-                    android:minHeight="@dimen/btn_height"
-                    android:focusable="true"
                     tools:ignore="UnusedAttribute" />
             </LinearLayout>
 

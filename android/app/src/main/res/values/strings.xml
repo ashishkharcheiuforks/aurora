@@ -18,4 +18,5 @@
     <string name="requirements">Requirements</string>
     <string name="enroll">Enroll</string>
     <string name="enrollment_confirmation">Enrollment Confirmation</string>
+    <string name="location">Location</string>
 </resources>
