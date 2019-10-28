@@ -19,4 +19,9 @@
     <string name="enroll">Enroll</string>
     <string name="enrollment_confirmation">Enrollment Confirmation</string>
     <string name="location">Location</string>
+    <string name="duration">Duration</string>
+    <string name="enrolment_terms">By clicking enrolment, you agree with the terms and conditions, and make sure you will be on time.</string>
+    <string name="confirm_enrolment">Confirm Enrolment</string>
+    <string name="enrolment_complete">Enrolment Complete</string>
+    <string name="enrolling">Enrolling&#8230;</string>
 </resources>

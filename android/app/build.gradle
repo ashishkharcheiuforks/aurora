@@ -107,4 +107,7 @@ dependencies {
 
     // Multidex
     implementation "androidx.multidex:multidex:$multidex_version"
+
+    // Android process button
+    implementation "com.github.dmytrodanylyk.android-process-button:library:$process_button_version"
 }

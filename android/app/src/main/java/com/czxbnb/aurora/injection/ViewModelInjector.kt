@@ -2,6 +2,7 @@ package com.czxbnb.aurora.injection
 
 import com.czxbnb.aurora.ui.activity.ActivityItemViewModel
 import com.czxbnb.aurora.ui.activity.ActivityViewModel
+import com.czxbnb.aurora.ui.activityDetail.ActivityConfirmViewModel
 import com.czxbnb.aurora.ui.activityDetail.ActivityDetailViewModel
 import com.czxbnb.aurora.ui.auth.login.LoginViewModel
 import com.czxbnb.aurora.ui.home.HomeActivityViewModel
@@ -64,6 +65,12 @@ interface ViewModelInjector {
      * @param activityDetailViewModel activityDetailViewModel in which to inject the dependencies
      */
     fun inject(activityDetailViewModel: ActivityDetailViewModel)
+
+    /**
+     * Injects required dependencies into the specified activityConfirmViewModel
+     * @param activityConfirmViewModel activityConfirmViewModel in which to inject the dependencies
+     */
+    fun inject(activityConfirmViewModel: ActivityConfirmViewModel)
 
     @Component.Builder
     interface Builder {

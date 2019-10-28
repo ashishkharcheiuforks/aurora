@@ -1,25 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottomSheetLL1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:orientation="vertical"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    app:behavior_peekHeight="56dp"
-    app:layout_behavior="@string/bottom_sheet_behavior">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.czxbnb.aurora.ui.activityDetail.ActivityConfirmViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/bottomSheetLL1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_activity"
-        android:drawablePadding="@dimen/spacing_middle"
-        android:gravity="start|center_vertical"
-        android:layout_marginTop="@dimen/spacing_middle"
-        android:text="@string/enrollment_confirmation"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-</LinearLayout>
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:behavior_peekHeight="56dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="@dimen/spacing_middle"
+            android:drawableStart="@drawable/ic_activity"
+            android:drawablePadding="@dimen/spacing_middle"
+            android:gravity="start|center_vertical"
+            android:text="@string/enrollment_confirmation"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:text="@{viewModel.activity.title}"
+                tools:text="Activity Title" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@{viewModel.activity.address}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                tools:text="Activity Address" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/spacing_middle"
+                android:layout_marginBottom="@dimen/spacing_middle"
+                android:background="@color/grey_20" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_middle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="@string/time"
+                    android:textSize="13sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:textSize="13sp"
+                    android:text="@{viewModel.activity.time}"
+                    android:textStyle="normal"
+                    tools:text="2013-10-32 12:00:00" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/spacing_middle"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="@string/duration"
+                    android:textSize="13sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/tv_duration"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="@{viewModel.activity.duration}"
+                    android:textSize="13sp"
+                    android:textStyle="normal"
+                    tools:text="2 Hours 0 Minutes" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/spacing_middle"
+                android:layout_marginBottom="@dimen/spacing_middle"
+                android:background="@color/grey_20" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/enrolment_terms"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            <com.dd.processbutton.iml.ActionProcessButton
+                android:id="@+id/btn_enroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_middle"
+                android:background="@color/colorPrimary"
+                android:clickable="true"
+                android:focusable="true"
+                android:minHeight="@dimen/btn_height"
+                android:text="@string/confirm_enrolment"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_button"
+                app:pb_colorComplete="@color/green_100"
+                app:pb_textComplete="@string/enrolment_complete"
+                app:pb_textProgress="@string/enrolling"
+                app:pb_textError="@string/retry"
+                tools:ignore="UnusedAttribute" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

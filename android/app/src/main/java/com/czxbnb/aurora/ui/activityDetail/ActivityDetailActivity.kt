@@ -68,6 +68,18 @@ class ActivityDetailActivity : BaseActivity(), OnMapReadyCallback {
         // Initialize map
         supportMapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         supportMapFragment.getMapAsync(this)
+
+        // Add listener for enroll button
+        btn_enroll.setOnClickListener {
+            val activityConfirmFragment = ActivityConfirmFragment()
+            val bundle = Bundle()
+            bundle.putSerializable("activity", activity)
+            activityConfirmFragment.arguments = bundle
+            activityConfirmFragment.show(
+                supportFragmentManager,
+                ActivityConfirmFragment::class.java.canonicalName
+            )
+        }
     }
 
     private fun addListenersForButtons() {
@@ -136,6 +148,7 @@ class ActivityDetailActivity : BaseActivity(), OnMapReadyCallback {
         // Set google maps fragment attributes
         this.googleMap.uiSettings.setAllGesturesEnabled(false)
         this.googleMap.uiSettings.isMapToolbarEnabled = true
+
         // Get location
         viewModel.getActivity().observe(this, Observer { activity ->
             val location = LatLng(activity.lat, activity.lng)

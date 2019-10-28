@@ -9,6 +9,8 @@ import androidx.room.Room
 import com.czxbnb.aurora.model.AppDatabase
 import com.czxbnb.aurora.ui.activity.ActivityItemViewModel
 import com.czxbnb.aurora.ui.activity.ActivityViewModel
+import com.czxbnb.aurora.ui.activityDetail.ActivityConfirmFragment
+import com.czxbnb.aurora.ui.activityDetail.ActivityConfirmViewModel
 import com.czxbnb.aurora.ui.activityDetail.ActivityDetailActivity
 import com.czxbnb.aurora.ui.activityDetail.ActivityDetailViewModel
 import com.czxbnb.aurora.ui.auth.login.LoginViewModel
@@ -54,6 +56,10 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
             modelClass.isAssignableFrom(ActivityDetailViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
                 return ActivityDetailViewModel(context) as T
+            }
+            modelClass.isAssignableFrom(ActivityConfirmViewModel::class.java) -> {
+                @Suppress("UNCHECKED_CAST")
+                return ActivityConfirmViewModel(context) as T
             }
         }
         throw IllegalArgumentException("Unknown ViewModel Class")
