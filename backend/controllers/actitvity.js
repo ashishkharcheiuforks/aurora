@@ -79,4 +79,42 @@ module.exports = {
             }
         })
     },
+
+    enroll: (req, res) => {
+        pool.getConnection(function (error, connection) {
+            let response = {};
+            if (error) {
+                // If connection error, return error message
+                response.status = 500;
+                response.message = "Database connection error";
+                res.status(response.status).send(response);
+                pool.releaseConnection(connection);
+            } else {
+                let {user_id, activity_id} = req.body;
+                if (!user_id || !activity_id) {
+                    response.status = 400;
+                    response.message = "User or activity could not be blank";
+                    pool.releaseConnection(connection)
+                } else {
+                    let timestamp = Date.now();
+                    connection.query(activityDao.enroll, [user_id, activity_id, timestamp, timestamp],
+                        function (error, result) {
+                            if (error) {
+                                response.status = 500;
+                                response.message = "Unable to get activity information, please try again later";
+                                res.status(response.status).send(response);
+                            } else {
+                                response.status = 200;
+                                response.message = "You have successfully enrolled this event";
+                                response.data = {
+                                    user_id: user_id,
+                                    activity_id: activity_id
+                                };
+                                res.status(response.status).send(response);
+                            }
+                        })
+                }
+            }
+        })
+    }
 };
