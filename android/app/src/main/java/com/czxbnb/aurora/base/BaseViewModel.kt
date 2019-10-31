@@ -5,6 +5,8 @@ import com.czxbnb.aurora.injection.DaggerViewModelInjector
 import com.czxbnb.aurora.injection.ViewModelInjector
 import com.czxbnb.aurora.injection.NetworkInjector
 import com.czxbnb.aurora.ui.activity.ActivityViewModel
+import com.czxbnb.aurora.ui.activityDetail.ActivityConfirmFragment
+import com.czxbnb.aurora.ui.activityDetail.ActivityConfirmViewModel
 import com.czxbnb.aurora.ui.activityDetail.ActivityDetailViewModel
 import com.czxbnb.aurora.ui.auth.login.LoginViewModel
 import com.czxbnb.aurora.ui.home.HomeActivityViewModel
@@ -31,6 +33,7 @@ abstract class BaseViewModel : ViewModel() {
             is HomeActivityViewModel -> injector.inject(this)
             is ActivityViewModel -> injector.inject(this)
             is ActivityDetailViewModel -> injector.inject(this)
+            is ActivityConfirmViewModel -> injector.inject(this)
         }
     }
 
