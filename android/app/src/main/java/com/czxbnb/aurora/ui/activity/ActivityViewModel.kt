@@ -1,11 +1,9 @@
 package com.czxbnb.aurora.ui.activity
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.czxbnb.aurora.ERROR_TAG
-import com.czxbnb.aurora.base.BaseData
 import com.czxbnb.aurora.base.BaseViewModel
 import com.czxbnb.aurora.manager.SharedPreferenceManager
 import com.czxbnb.aurora.model.activity.Activity
@@ -27,8 +25,10 @@ class ActivityViewModel(
     @Inject
     lateinit var activityApi: ActivityApi
     private lateinit var activitySubscription: Disposable
+    private lateinit var activityRefreshSubscription: Disposable
     val errorMessage: MutableLiveData<String> = MutableLiveData()
     val activityLoadingVisibility: MutableLiveData<Int> = MutableLiveData()
+    val activityRefreshVisibility: MutableLiveData<Boolean> = MutableLiveData()
     val activityAdapter: ActivityAdapter = ActivityAdapter()
 
     init {
@@ -60,12 +60,33 @@ class ActivityViewModel(
 
     }
 
+    fun refreshActivityListFromRemoteSource() {
+        activityRefreshSubscription =
+            activityApi.getActivities(SharedPreferenceManager.getInstance(context)?.token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { onRefreshActivityListStart() }
+                .doOnTerminate { onRefreshActivityListFinish() }
+                .subscribe(
+                    { result -> onLoadActivityListSuccess(result.data) },
+                    { error -> onLoadActivityListError(error) }
+                )
+    }
+
     private fun onLoadActivityListStart() {
         activityLoadingVisibility.value = View.VISIBLE
     }
 
     private fun onLoadActivityListFinish() {
         activityLoadingVisibility.value = View.GONE
+    }
+
+    private fun onRefreshActivityListStart() {
+        activityRefreshVisibility.value = true
+    }
+
+    private fun onRefreshActivityListFinish() {
+        activityRefreshVisibility.value = false
     }
 
     private fun onLoadActivityListSuccess(activityList: List<Activity>) {
@@ -86,5 +107,6 @@ class ActivityViewModel(
     override fun onCleared() {
         super.onCleared()
         activitySubscription.dispose()
+        activityRefreshSubscription.dispose()
     }
 }
