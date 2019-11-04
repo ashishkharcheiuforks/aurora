@@ -51,16 +51,27 @@ class HomeViewModel(
 
     private fun getActivityList() {
         // get the activity list
-        activitySubscription =
-            activityApi.getActivities(SharedPreferenceManager.getInstance(context)?.token)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { onLoadActivityListStart() }
-                .doOnTerminate { onLoadActivityListFinish() }
-                .subscribe(
-                    { result -> onLoadActivityListSuccess(result) },
-                    { error -> onLoadActivityListError(error) }
-                )
+        activitySubscription = Observable.fromCallable { activityDao.all }
+            .concatMap { dbActivityList ->
+                if (dbActivityList.isEmpty()) {
+                    activityApi.getActivities(SharedPreferenceManager.getInstance(context)?.token)
+                        .concatMap { apiActivityList ->
+                            activityDao.insertAll(*apiActivityList.data.toTypedArray())
+                            Observable.just(apiActivityList.data)
+                        }
+
+                } else {
+                    Observable.just(dbActivityList)
+                }
+            }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { onLoadActivityListStart() }
+            .doOnTerminate { onLoadActivityListFinish() }
+            .subscribe(
+                { result -> onLoadActivityListSuccess(result) },
+                { error -> onLoadActivityListError(error) }
+            )
     }
 
     private fun onLoadActivityListStart() {
@@ -72,8 +83,8 @@ class HomeViewModel(
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun onLoadActivityListSuccess(activityList: BaseData<List<Activity>>) {
-        homeActivityAdapter.updateActivityList(activityList.data)
+    private fun onLoadActivityListSuccess(activityList: List<Activity>) {
+        homeActivityAdapter.updateActivityList(activityList)
     }
 
     private fun onLoadActivityListError(e: Throwable) {

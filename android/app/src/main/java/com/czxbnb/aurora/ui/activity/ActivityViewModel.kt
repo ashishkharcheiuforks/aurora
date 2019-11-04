@@ -11,6 +11,7 @@ import com.czxbnb.aurora.manager.SharedPreferenceManager
 import com.czxbnb.aurora.model.activity.Activity
 import com.czxbnb.aurora.model.activity.ActivityDao
 import com.czxbnb.aurora.network.ActivityApi
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -35,15 +36,27 @@ class ActivityViewModel(
     }
 
     private fun getActivityList() {
-        activitySubscription =
-            activityApi.getActivities(SharedPreferenceManager.getInstance(context)?.token)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { onLoadActivityListStart() }
-                .doOnTerminate { onLoadActivityListFinish() }
-                .subscribe(
-                    { result -> onLoadActivityListSuccess(result) },
-                    { error -> onLoadActivityListError(error) })
+        activitySubscription = Observable.fromCallable { activityDao.all }
+            .concatMap { dbActivityList ->
+                if (dbActivityList.isEmpty()) {
+                    activityApi.getActivities(SharedPreferenceManager.getInstance(context)?.token)
+                        .concatMap { apiActivityList ->
+                            activityDao.insertAll(*apiActivityList.data.toTypedArray())
+                            Observable.just(apiActivityList.data)
+                        }
+
+                } else {
+                    Observable.just(dbActivityList)
+                }
+            }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { onLoadActivityListStart() }
+            .doOnTerminate { onLoadActivityListFinish() }
+            .subscribe(
+                { result -> onLoadActivityListSuccess(result) },
+                { error -> onLoadActivityListError(error) }
+            )
 
     }
 
@@ -55,9 +68,8 @@ class ActivityViewModel(
         activityLoadingVisibility.value = View.GONE
     }
 
-    @SuppressLint("SimpleDateFormat")
-    private fun onLoadActivityListSuccess(activityList: BaseData<List<Activity>>) {
-        activityAdapter.updateActivityList(activityList.data)
+    private fun onLoadActivityListSuccess(activityList: List<Activity>) {
+        activityAdapter.updateActivityList(activityList)
     }
 
     private fun onLoadActivityListError(e: Throwable) {
