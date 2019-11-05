@@ -7,7 +7,9 @@ import com.czxbnb.aurora.ERROR_TAG
 import com.czxbnb.aurora.base.BaseViewModel
 import com.czxbnb.aurora.manager.SharedPreferenceManager
 import com.czxbnb.aurora.model.activity.Activity
+import com.czxbnb.aurora.model.activity.ActivityCallback
 import com.czxbnb.aurora.model.activity.ActivityDao
+import com.czxbnb.aurora.model.activity.ActivityRepository
 import com.czxbnb.aurora.network.ActivityApi
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,10 +24,17 @@ class ActivityViewModel(
     val context: Context,
     private val activityDao: ActivityDao
 ) : BaseViewModel() {
+    // Data Repository
+    @Inject
+    lateinit var activityRepository: ActivityRepository
     @Inject
     lateinit var activityApi: ActivityApi
+
+    // Subscriptions
     private lateinit var activitySubscription: Disposable
     private lateinit var activityRefreshSubscription: Disposable
+
+    // Live data
     val errorMessage: MutableLiveData<String> = MutableLiveData()
     val activityLoadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val activityRefreshVisibility: MutableLiveData<Boolean> = MutableLiveData()
@@ -57,20 +66,26 @@ class ActivityViewModel(
                 { result -> onLoadActivityListSuccess(result) },
                 { error -> onLoadActivityListError(error) }
             )
-
     }
 
     fun refreshActivityListFromRemoteSource() {
-        activityRefreshSubscription =
-            activityApi.getActivities(SharedPreferenceManager.getInstance(context)?.token)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { onRefreshActivityListStart() }
-                .doOnTerminate { onRefreshActivityListFinish() }
-                .subscribe(
-                    { result -> onLoadActivityListSuccess(result.data) },
-                    { error -> onLoadActivityListError(error) }
-                )
+        activityRefreshSubscription = activityRepository.loadActivityListFromRemoteArea(context, object : ActivityCallback {
+            override fun onLoadActivityStart() {
+                onRefreshActivityListStart()
+            }
+
+            override fun onLoadActivityFinish() {
+                onRefreshActivityListFinish()
+            }
+
+            override fun onLoadActivitySuccess(activityList: List<Activity>) {
+                onLoadActivityListSuccess(activityList)
+            }
+
+            override fun onLoadActivityError(e: Throwable) {
+                onLoadActivityListError(e)
+            }
+        })
     }
 
     private fun onLoadActivityListStart() {

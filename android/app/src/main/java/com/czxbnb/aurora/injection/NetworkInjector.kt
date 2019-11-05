@@ -2,6 +2,7 @@ package com.czxbnb.aurora.injection
 
 import android.annotation.SuppressLint
 import com.czxbnb.aurora.BASE_URL
+import com.czxbnb.aurora.model.activity.ActivityRepository
 import com.czxbnb.aurora.network.ActivityApi
 import com.czxbnb.aurora.network.AuthApi
 import com.czxbnb.aurora.network.PostApi
@@ -63,6 +64,17 @@ object NetworkInjector {
     }
 
     /**
+     * Provides the Activity repository implementation.
+     * @return the Activity repository implementation.
+     */
+    @Provides
+    @Reusable
+    @JvmStatic
+    internal fun provideActivityRepository(): ActivityRepository {
+        return ActivityRepository.getInstance()
+    }
+
+    /**
      * Provides the Retrofit object.
      * @return the Retrofit object
      */
@@ -119,7 +131,5 @@ object NetworkInjector {
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
-
-
     }
 }

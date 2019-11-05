@@ -5,7 +5,6 @@ import com.czxbnb.aurora.injection.DaggerViewModelInjector
 import com.czxbnb.aurora.injection.ViewModelInjector
 import com.czxbnb.aurora.injection.NetworkInjector
 import com.czxbnb.aurora.ui.activity.ActivityViewModel
-import com.czxbnb.aurora.ui.activityDetail.ActivityConfirmFragment
 import com.czxbnb.aurora.ui.activityDetail.ActivityConfirmViewModel
 import com.czxbnb.aurora.ui.activityDetail.ActivityDetailViewModel
 import com.czxbnb.aurora.ui.auth.login.LoginViewModel
