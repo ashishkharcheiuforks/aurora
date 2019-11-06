@@ -36,7 +36,7 @@ class ActivityConfirmFragment : BottomSheetDialogFragment() {
         // Set progress button status and listener
         binding.root.btn_enroll.setMode(ActionProcessButton.Mode.ENDLESS)
         binding.root.btn_enroll.setOnClickListener {view ->
-            viewModel.enrollActivity("4", "1")
+            viewModel.enrollActivity( "1")
         }
 
         // Set observer for progress button

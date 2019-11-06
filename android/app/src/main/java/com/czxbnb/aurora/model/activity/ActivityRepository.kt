@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class ActivityRepository() : BaseRepository() {
+class ActivityRepository private constructor(): BaseRepository() {
     @Inject
     lateinit var activityApi: ActivityApi
 

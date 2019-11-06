@@ -2,7 +2,7 @@ package com.czxbnb.aurora.network
 
 import com.czxbnb.aurora.base.BaseData
 import com.czxbnb.aurora.model.activity.Activity
-import com.czxbnb.aurora.model.activity_enroll.ActivityEnroll
+import com.czxbnb.aurora.model.activity_enrolment.ActivityEnrolment
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -28,5 +28,5 @@ interface ActivityApi {
         @Header("Authorization") token: String?,
         @Field("user_id")user_id: String?,
         @Field("activity_id")activity_id: String?
-    ): Observable<BaseData<ActivityEnroll>>
+    ): Observable<BaseData<ActivityEnrolment>>
 }
