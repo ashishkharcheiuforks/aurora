@@ -27,6 +27,7 @@ class ActivityViewModel(
     @Inject
     lateinit var activityRepository: ActivityRepository
 
+    // Activity api
     @Inject
     lateinit var activityApi: ActivityApi
 
@@ -38,6 +39,8 @@ class ActivityViewModel(
     val errorMessage: MutableLiveData<String> = MutableLiveData()
     val activityLoadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val activityRefreshVisibility: MutableLiveData<Boolean> = MutableLiveData()
+
+    // Recycler view adapter
     val activityAdapter: ActivityAdapter = ActivityAdapter()
 
     init {

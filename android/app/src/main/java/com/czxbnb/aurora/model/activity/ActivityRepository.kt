@@ -75,6 +75,4 @@ class ActivityRepository() : BaseRepository() {
                 { error -> activityCallback.onLoadActivityError(error) }
             )
     }
-
-
 }

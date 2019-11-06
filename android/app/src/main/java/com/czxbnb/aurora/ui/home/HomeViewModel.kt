@@ -28,6 +28,8 @@ import android.R.string
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.util.Log
 import com.czxbnb.aurora.ERROR_TAG
+import com.czxbnb.aurora.model.activity.ActivityCallback
+import com.czxbnb.aurora.model.activity.ActivityRepository
 import com.google.gson.JsonParseException
 import org.json.JSONObject
 import retrofit2.HttpException
@@ -38,9 +40,18 @@ class HomeViewModel(
     val context: Context,
     private val activityDao: ActivityDao
 ) : BaseViewModel() {
+    // Data Repository
+    @Inject
+    lateinit var activityRepository: ActivityRepository
+
+    // Activity api
     @Inject
     lateinit var activityApi: ActivityApi
+
+    // Subscription
     private lateinit var activitySubscription: Disposable
+
+    // Live data
     val errorMessage: MutableLiveData<String> = MutableLiveData()
     val activityLoadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val homeActivityAdapter: HomeActivityAdapter = HomeActivityAdapter()
@@ -51,27 +62,23 @@ class HomeViewModel(
 
     private fun getActivityList() {
         // get the activity list
-        activitySubscription = Observable.fromCallable { activityDao.all }
-            .concatMap { dbActivityList ->
-                if (dbActivityList.isEmpty()) {
-                    activityApi.getActivities(SharedPreferenceManager.getInstance(context)?.token)
-                        .concatMap { apiActivityList ->
-                            activityDao.insertAll(*apiActivityList.data.toTypedArray())
-                            Observable.just(apiActivityList.data)
-                        }
-
-                } else {
-                    Observable.just(dbActivityList)
-                }
+        activitySubscription = activityRepository.loadActivityList(context, object: ActivityCallback {
+            override fun onLoadActivityStart() {
+               onLoadActivityListStart()
             }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { onLoadActivityListStart() }
-            .doOnTerminate { onLoadActivityListFinish() }
-            .subscribe(
-                { result -> onLoadActivityListSuccess(result) },
-                { error -> onLoadActivityListError(error) }
-            )
+
+            override fun onLoadActivityFinish() {
+               onLoadActivityListFinish()
+            }
+
+            override fun onLoadActivitySuccess(activityList: List<Activity>) {
+                onLoadActivityListSuccess(activityList)
+            }
+
+            override fun onLoadActivityError(e: Throwable) {
+               onLoadActivityListError(e)
+            }
+        })
     }
 
     private fun onLoadActivityListStart() {
