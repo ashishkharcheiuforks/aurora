@@ -1,9 +1,10 @@
 package com.czxbnb.aurora.base
 
 import androidx.lifecycle.ViewModel
-import com.czxbnb.aurora.injection.DaggerViewModelComponent
+import com.czxbnb.aurora.injection.component.DaggerViewModelComponent
 import com.czxbnb.aurora.injection.component.ViewModelComponent
 import com.czxbnb.aurora.injection.module.ApiModule
+import com.czxbnb.aurora.injection.module.RepositoryModule
 import com.czxbnb.aurora.ui.activity.ActivityViewModel
 import com.czxbnb.aurora.ui.activityDetail.ActivityConfirmViewModel
 import com.czxbnb.aurora.ui.activityDetail.ActivityDetailViewModel
@@ -16,7 +17,8 @@ import com.czxbnb.aurora.ui.post.PostListViewModel
 abstract class BaseViewModel : ViewModel() {
     private val component: ViewModelComponent = DaggerViewModelComponent
         .builder()
-        .networkModule(ApiModule)
+        .apiModule(ApiModule)
+        .repositoryModule(RepositoryModule)
         .build()
 
     init {

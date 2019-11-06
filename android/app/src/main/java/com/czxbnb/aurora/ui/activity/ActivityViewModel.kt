@@ -21,8 +21,7 @@ import java.lang.ClassCastException
 import javax.inject.Inject
 
 class ActivityViewModel(
-    val context: Context,
-    private val activityDao: ActivityDao
+    val context: Context
 ) : BaseViewModel() {
     // Data Repository
     @Inject
@@ -46,27 +45,23 @@ class ActivityViewModel(
     }
 
     private fun getActivityList() {
-        activitySubscription = Observable.fromCallable { activityDao.all }
-            .concatMap { dbActivityList ->
-                if (dbActivityList.isEmpty()) {
-                    activityApi.getActivities(SharedPreferenceManager.getInstance(context)?.token)
-                        .concatMap { apiActivityList ->
-                            activityDao.insertAll(*apiActivityList.data.toTypedArray())
-                            Observable.just(apiActivityList.data)
-                        }
-
-                } else {
-                    Observable.just(dbActivityList)
-                }
+        activitySubscription = activityRepository.loadActivityList(context, object : ActivityCallback {
+            override fun onLoadActivityStart() {
+                onLoadActivityListStart()
             }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { onLoadActivityListStart() }
-            .doOnTerminate { onLoadActivityListFinish() }
-            .subscribe(
-                { result -> onLoadActivityListSuccess(result) },
-                { error -> onLoadActivityListError(error) }
-            )
+
+            override fun onLoadActivityFinish() {
+               onLoadActivityListFinish()
+            }
+
+            override fun onLoadActivitySuccess(activityList: List<Activity>) {
+                onLoadActivityListSuccess(activityList)
+            }
+
+            override fun onLoadActivityError(e: Throwable) {
+                onLoadActivityListError(e)
+            }
+        })
     }
 
     fun refreshActivityListFromRemoteSource() {

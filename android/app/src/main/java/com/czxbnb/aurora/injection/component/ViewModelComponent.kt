@@ -24,7 +24,9 @@ interface ViewModelComponent {
     interface Builder {
         fun build() : ViewModelComponent
 
-        fun networkModule(networkModule: ApiModule): Builder
+        fun apiModule(networkModule: ApiModule): Builder
+
+        fun repositoryModule (repositoryModule: RepositoryModule): Builder
     }
 
     /**

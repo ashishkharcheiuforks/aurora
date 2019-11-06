@@ -47,7 +47,7 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
             modelClass.isAssignableFrom(ActivityViewModel::class.java) -> {
                 val db = AppDatabase.getInstance(context)
                 @Suppress("UNCHECKED_CAST")
-                return ActivityViewModel(context, db!!.activityDao()) as T
+                return ActivityViewModel(context) as T
             }
             modelClass.isAssignableFrom(ActivityItemViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
