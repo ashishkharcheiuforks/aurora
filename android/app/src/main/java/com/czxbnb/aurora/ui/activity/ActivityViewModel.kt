@@ -27,6 +27,7 @@ class ActivityViewModel(
     // Data Repository
     @Inject
     lateinit var activityRepository: ActivityRepository
+
     @Inject
     lateinit var activityApi: ActivityApi
 

@@ -1,6 +1,7 @@
-package com.czxbnb.aurora.injection
+package com.czxbnb.aurora.injection.component
 
-import com.czxbnb.aurora.model.activity.ActivityRepository
+import com.czxbnb.aurora.injection.module.ApiModule
+import com.czxbnb.aurora.injection.module.RepositoryModule
 import com.czxbnb.aurora.ui.activity.ActivityItemViewModel
 import com.czxbnb.aurora.ui.activity.ActivityViewModel
 import com.czxbnb.aurora.ui.activityDetail.ActivityConfirmViewModel
@@ -17,8 +18,15 @@ import javax.inject.Singleton
  * Component providing inject() methods for presenters.
  */
 @Singleton
-@Component(modules = [(NetworkInjector::class)])
-interface ViewModelInjector {
+@Component(modules = [(ApiModule::class), (RepositoryModule::class)])
+interface ViewModelComponent {
+    @Component.Builder
+    interface Builder {
+        fun build() : ViewModelComponent
+
+        fun networkModule(networkModule: ApiModule): Builder
+    }
+
     /**
      * Injects required dependencies into the specified PostListViewModel.
      * @param postListViewModel PostListViewModel in which to inject the dependencies
@@ -72,17 +80,4 @@ interface ViewModelInjector {
      * @param activityConfirmViewModel activityConfirmViewModel in which to inject the dependencies
      */
     fun inject(activityConfirmViewModel: ActivityConfirmViewModel)
-
-    /**
-     * Injects required dependencies into the specified activityRepository
-     * @param activityRepository activityRepository in which to inject the dependencies
-     */
-    fun inject(activityRepository: ActivityRepository)
-
-    @Component.Builder
-    interface Builder {
-        fun build() : ViewModelInjector
-
-        fun networkModule(networkModule: NetworkInjector): Builder
-    }
 }

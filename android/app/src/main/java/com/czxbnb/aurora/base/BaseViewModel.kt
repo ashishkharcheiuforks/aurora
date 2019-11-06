@@ -1,9 +1,9 @@
 package com.czxbnb.aurora.base
 
 import androidx.lifecycle.ViewModel
-import com.czxbnb.aurora.injection.DaggerViewModelInjector
-import com.czxbnb.aurora.injection.ViewModelInjector
-import com.czxbnb.aurora.injection.NetworkInjector
+import com.czxbnb.aurora.injection.DaggerViewModelComponent
+import com.czxbnb.aurora.injection.component.ViewModelComponent
+import com.czxbnb.aurora.injection.module.ApiModule
 import com.czxbnb.aurora.ui.activity.ActivityViewModel
 import com.czxbnb.aurora.ui.activityDetail.ActivityConfirmViewModel
 import com.czxbnb.aurora.ui.activityDetail.ActivityDetailViewModel
@@ -14,9 +14,9 @@ import com.czxbnb.aurora.ui.main.MainViewModel
 import com.czxbnb.aurora.ui.post.PostListViewModel
 
 abstract class BaseViewModel : ViewModel() {
-    private val injector: ViewModelInjector = DaggerViewModelInjector
+    private val component: ViewModelComponent = DaggerViewModelComponent
         .builder()
-        .networkModule(NetworkInjector)
+        .networkModule(ApiModule)
         .build()
 
     init {
@@ -25,14 +25,14 @@ abstract class BaseViewModel : ViewModel() {
 
     private fun inject() {
         when(this) {
-            is PostListViewModel -> injector.inject(this)
-            is LoginViewModel -> injector.inject(this)
-            is MainViewModel -> injector.inject(this)
-            is HomeViewModel -> injector.inject(this)
-            is HomeActivityViewModel -> injector.inject(this)
-            is ActivityViewModel -> injector.inject(this)
-            is ActivityDetailViewModel -> injector.inject(this)
-            is ActivityConfirmViewModel -> injector.inject(this)
+            is PostListViewModel -> component.inject(this)
+            is LoginViewModel -> component.inject(this)
+            is MainViewModel -> component.inject(this)
+            is HomeViewModel -> component.inject(this)
+            is HomeActivityViewModel -> component.inject(this)
+            is ActivityViewModel -> component.inject(this)
+            is ActivityDetailViewModel -> component.inject(this)
+            is ActivityConfirmViewModel -> component.inject(this)
         }
     }
 

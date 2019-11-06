@@ -1,8 +1,7 @@
-package com.czxbnb.aurora.injection
+package com.czxbnb.aurora.injection.module
 
 import android.annotation.SuppressLint
 import com.czxbnb.aurora.BASE_URL
-import com.czxbnb.aurora.model.activity.ActivityRepository
 import com.czxbnb.aurora.network.ActivityApi
 import com.czxbnb.aurora.network.AuthApi
 import com.czxbnb.aurora.network.PostApi
@@ -18,7 +17,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 
 import java.security.cert.CertificateException
 
-import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
@@ -26,7 +24,7 @@ import javax.net.ssl.X509TrustManager
 
 @Module
 @Suppress("unused")
-object NetworkInjector {
+object ApiModule {
     /**
      * Provides the Post service implementation.
      * @param retrofit the Retrofit object used to instantiate the service
@@ -61,17 +59,6 @@ object NetworkInjector {
     @JvmStatic
     internal fun provideActivityApi(retrofit: Retrofit): ActivityApi {
         return retrofit.create(ActivityApi::class.java)
-    }
-
-    /**
-     * Provides the Activity repository implementation.
-     * @return the Activity repository implementation.
-     */
-    @Provides
-    @Reusable
-    @JvmStatic
-    internal fun provideActivityRepository(): ActivityRepository {
-        return ActivityRepository.getInstance()
     }
 
     /**
