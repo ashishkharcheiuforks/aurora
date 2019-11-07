@@ -37,16 +37,11 @@ import java.lang.ClassCastException
 
 
 class HomeViewModel(
-    val context: Context,
-    private val activityDao: ActivityDao
+    val context: Context
 ) : BaseViewModel() {
     // Data Repository
     @Inject
     lateinit var activityRepository: ActivityRepository
-
-    // Activity api
-    @Inject
-    lateinit var activityApi: ActivityApi
 
     // Subscription
     private lateinit var activitySubscription: Disposable

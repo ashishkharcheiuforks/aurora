@@ -16,11 +16,15 @@ import retrofit2.HttpException
 import javax.inject.Inject
 import org.json.JSONObject
 import com.czxbnb.aurora.ERROR_TAG
+import com.czxbnb.aurora.model.user.UserCallback
+import com.czxbnb.aurora.model.user.UserRepository
 
 
-class LoginViewModel(val context: Context) : BaseViewModel() {
+class
+LoginViewModel(val context: Context) : BaseViewModel() {
     @Inject
-    lateinit var authApi: AuthApi
+    lateinit var userRepository: UserRepository
+
     private lateinit var subscription: Disposable
     val errorMessage: MutableLiveData<String> = MutableLiveData()
     val loadingVisibility = MutableLiveData<Int>().apply { postValue(View.GONE) }
@@ -43,15 +47,23 @@ class LoginViewModel(val context: Context) : BaseViewModel() {
         }
 
         // Perform login action
-        subscription = authApi.login(username, password)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { onLoginStart() }
-            .doOnTerminate { onLoginFinish() }
-            .subscribe(
-                { result -> onLoginSuccess(result.data) },
-                { error -> onLoginError(error) }
-            )
+        subscription = userRepository.login(username, password, object : UserCallback {
+            override fun onLoadUserStart() {
+                onLoginStart()
+            }
+
+            override fun onLoadUserFinish() {
+               onLoginFinish()
+            }
+
+            override fun onLoadUserSuccess(user: User) {
+                onLoginSuccess(user)
+            }
+
+            override fun onLoadUserError(e: Throwable) {
+               onLoginError(e)
+            }
+        })
     }
 
     private fun onLoginStart() {

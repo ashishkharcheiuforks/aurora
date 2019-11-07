@@ -27,10 +27,6 @@ class ActivityViewModel(
     @Inject
     lateinit var activityRepository: ActivityRepository
 
-    // Activity api
-    @Inject
-    lateinit var activityApi: ActivityApi
-
     // Subscriptions
     private lateinit var activitySubscription: Disposable
     private lateinit var activityRefreshSubscription: Disposable
