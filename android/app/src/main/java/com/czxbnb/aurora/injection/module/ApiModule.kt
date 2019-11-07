@@ -5,13 +5,13 @@ import com.czxbnb.aurora.BASE_URL
 import com.czxbnb.aurora.network.ActivityApi
 import com.czxbnb.aurora.network.AuthApi
 import com.czxbnb.aurora.network.PostApi
+import com.czxbnb.aurora.network.converter.AuroraConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 
@@ -108,11 +108,12 @@ object ApiModule {
             // Add logging interceptor
             val logging = HttpLoggingInterceptor()
             logging.level = HttpLoggingInterceptor.Level.BODY
-            builder.addInterceptor(logging)  // <-- this
+            builder.addInterceptor(logging)
+
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(builder.build())
-                .addConverterFactory(MoshiConverterFactory.create())
+                .addConverterFactory(AuroraConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .build()
         } catch (e: Exception) {
