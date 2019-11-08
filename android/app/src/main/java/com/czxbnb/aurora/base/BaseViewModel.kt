@@ -1,5 +1,6 @@
 package com.czxbnb.aurora.base
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.czxbnb.aurora.injection.component.DaggerViewModelComponent
 import com.czxbnb.aurora.injection.component.ViewModelComponent
@@ -21,6 +22,8 @@ abstract class BaseViewModel : ViewModel() {
         .repositoryModule(RepositoryModule)
         .build()
 
+    val errorMessage: MutableLiveData<String> = MutableLiveData()
+
     init {
         inject()
     }
@@ -37,6 +40,4 @@ abstract class BaseViewModel : ViewModel() {
             is ActivityConfirmViewModel -> component.inject(this)
         }
     }
-
-
 }

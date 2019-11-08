@@ -12,34 +12,30 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czxbnb.aurora.R
+import com.czxbnb.aurora.base.BaseFragment
 import com.czxbnb.aurora.databinding.FragmentActivityBinding
 import com.czxbnb.aurora.injection.ViewModelFactory
 import com.czxbnb.aurora.ui.home.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_activity.*
 
-class ActivityFragment : Fragment() {
-    private lateinit var binding: FragmentActivityBinding
-    private lateinit var viewModel: ActivityViewModel
+class ActivityFragment :
+    BaseFragment<ActivityViewModel, FragmentActivityBinding>(ActivityViewModel::class.java) {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Bind the view model
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_activity, container, false)
-        binding.rvActivity.layoutManager =
-            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        viewModel = ViewModelProviders.of(this, context?.let { ViewModelFactory(it) })
-            .get(ActivityViewModel::class.java)
-        binding.viewModel = viewModel
+        super.onCreateView(inflater, container, savedInstanceState)
+        dataBinding.rvActivity.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        dataBinding.viewModel = viewModel
 
-        // Add error observer
-        viewModel.errorMessage.observe(this, Observer { errorMessage ->
-            if (errorMessage != null) showError(errorMessage)
-        })
+        return dataBinding.root
+    }
 
-        return binding.root
+    override fun getLayoutRes(): Int {
+        return R.layout.fragment_activity
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,9 +48,5 @@ class ActivityFragment : Fragment() {
         viewModel.activityRefreshVisibility.observe(this, Observer { refreshVisibility ->
             srl_activity.isRefreshing = refreshVisibility
         })
-    }
-
-    private fun showError(errorMessage: String) {
-        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
     }
 }

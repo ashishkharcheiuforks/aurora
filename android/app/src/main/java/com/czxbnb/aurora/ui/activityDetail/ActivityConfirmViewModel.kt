@@ -30,7 +30,6 @@ class ActivityConfirmViewModel(val context: Context) : BaseViewModel() {
     private val activity: MutableLiveData<Activity> = MutableLiveData()
     private lateinit var enrollSubscription: Disposable
     val progress: MutableLiveData<Int> = MutableLiveData()
-    val errorMessage: MutableLiveData<String> = MutableLiveData()
 
 
     fun loadActivity(activity: Activity) {
@@ -74,12 +73,7 @@ class ActivityConfirmViewModel(val context: Context) : BaseViewModel() {
     }
 
     private fun onViewModelEnrollActivityError(e: Throwable) {
-        try {
-            val errorBody = JSONObject((e as HttpException).response().errorBody()!!.string())
-            errorMessage.value = errorBody.getString(ERROR_TAG)
-        } catch (ex: JSONException) {
-            errorMessage.value = e.message
-        }
+        errorMessage.value = e.message
         progress.value = -1
     }
 }

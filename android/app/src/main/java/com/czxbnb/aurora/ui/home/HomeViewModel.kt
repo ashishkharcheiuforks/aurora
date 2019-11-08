@@ -27,7 +27,6 @@ class HomeViewModel(
     private lateinit var activitySubscription: Disposable
 
     // Live data
-    val errorMessage: MutableLiveData<String> = MutableLiveData()
     val activityLoadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val homeActivityAdapter: HomeActivityAdapter = HomeActivityAdapter()
 

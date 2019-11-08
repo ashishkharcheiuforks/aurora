@@ -12,37 +12,25 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.czxbnb.aurora.R
+import com.czxbnb.aurora.base.BaseFragment
 import com.czxbnb.aurora.databinding.FragmentHomeBinding
 import com.czxbnb.aurora.injection.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 
-class HomeFragment : Fragment() {
-    private lateinit var binding: FragmentHomeBinding
-    private lateinit var viewModel: HomeViewModel
-
+class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(HomeViewModel::class.java) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Bind view model
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        binding.rvActivity.layoutManager =
-            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        viewModel = ViewModelProviders.of(this, context?.let { ViewModelFactory(it) })
-            .get(HomeViewModel::class.java)
-        binding.viewModel = viewModel
-
-        // Add error observer
-        viewModel.errorMessage.observe(this, Observer { errorMessage ->
-            if (errorMessage != null) showError(errorMessage)
-        })
-
-        return binding.root
+        super.onCreateView(inflater, container, savedInstanceState)
+        dataBinding.viewModel = viewModel
+        dataBinding.rvActivity.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        return dataBinding.root
     }
 
-    private fun showError(errorMessage: String) {
-        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+    override fun getLayoutRes(): Int {
+        return R.layout.fragment_home
     }
-
 }

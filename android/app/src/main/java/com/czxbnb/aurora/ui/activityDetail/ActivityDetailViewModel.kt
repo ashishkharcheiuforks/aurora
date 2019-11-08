@@ -22,7 +22,6 @@ class ActivityDetailViewModel(val context: Context) : BaseViewModel() {
     @Inject
     lateinit var activityApi: ActivityApi
     // private lateinit var subscription: Disposable
-    val errorMessage: MutableLiveData<String> = MutableLiveData()
     private val activity : MutableLiveData<Activity> = MutableLiveData()
 
     fun loadActivity(activity : Activity) {

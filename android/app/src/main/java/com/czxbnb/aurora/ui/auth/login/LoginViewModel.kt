@@ -26,7 +26,6 @@ LoginViewModel(val context: Context) : BaseViewModel() {
     lateinit var userRepository: UserRepository
 
     private lateinit var subscription: Disposable
-    val errorMessage: MutableLiveData<String> = MutableLiveData()
     val loadingVisibility = MutableLiveData<Int>().apply { postValue(View.GONE) }
     val textVisibility = MutableLiveData<Int>().apply { postValue(View.VISIBLE) }
     private var isLoggingIn = false

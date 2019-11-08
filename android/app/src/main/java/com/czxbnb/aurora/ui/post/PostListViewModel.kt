@@ -17,7 +17,6 @@ class PostListViewModel(private val postDao: PostDao) : BaseViewModel() {
     @Inject
     lateinit var postApi: PostApi
     private lateinit var subscription: Disposable
-    val errorMessage: MutableLiveData<String> = MutableLiveData()
     val errorClickListener = View.OnClickListener { loadPosts() }
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val postListAdapter: PostListAdapter = PostListAdapter()
