@@ -1,7 +1,9 @@
 package com.czxbnb.aurora.ui.auth.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -15,24 +17,11 @@ import com.czxbnb.aurora.injection.ViewModelFactory
 import com.czxbnb.aurora.manager.SharedPreferenceManager
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : BaseActivity() {
-    private lateinit var binding: ActivityLoginBinding
-    private lateinit var viewModel: LoginViewModel
-
+class LoginActivity :
+    BaseActivity<LoginViewModel, ActivityLoginBinding>(LoginViewModel::class.java) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Bind view model
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(LoginViewModel::class.java)
-        binding.viewModel = viewModel
-
-        // Observe error message
-        viewModel.errorMessage.observe(this, Observer { errorMessage ->
-            if (errorMessage != null) {
-                showError(errorMessage)
-            }
-        })
+        dataBinding.viewModel = viewModel
     }
 
     fun loginClick(view: View) {
@@ -42,7 +31,7 @@ class LoginActivity : BaseActivity() {
         viewModel.login(username, password)
     }
 
-    private fun showError(errorMessage: String) {
-        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+    override fun getLayoutRes(): Int {
+        return R.layout.activity_login
     }
 }

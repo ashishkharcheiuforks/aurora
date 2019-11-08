@@ -14,8 +14,7 @@ import com.czxbnb.aurora.injection.ViewModelFactory
 
 abstract class BaseFragment<ViewModel : BaseViewModel, DataBinding : ViewDataBinding>(
     private val viewModelClass: Class<ViewModel>
-) :
-    Fragment() {
+) : Fragment() {
     lateinit var viewModel: ViewModel
     lateinit var dataBinding: DataBinding
 

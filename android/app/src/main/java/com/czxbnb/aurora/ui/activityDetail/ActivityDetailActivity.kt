@@ -21,22 +21,14 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.LatLng
 
 
-class ActivityDetailActivity : BaseActivity(), OnMapReadyCallback {
-    private lateinit var binding: ActivityDetailBinding
-    private lateinit var viewModel: ActivityDetailViewModel
+class ActivityDetailActivity : BaseActivity<ActivityDetailViewModel, ActivityDetailBinding>(ActivityDetailViewModel::class.java), OnMapReadyCallback {
     private lateinit var activity: Activity
     private lateinit var googleMap: GoogleMap
     private lateinit var supportMapFragment: SupportMapFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Bind view model
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
-        viewModel = ViewModelProviders.of(this, ViewModelFactory(this))
-            .get(ActivityDetailViewModel::class.java)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        dataBinding.viewModel = viewModel
 
         // Initialize toolbar
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
@@ -80,6 +72,10 @@ class ActivityDetailActivity : BaseActivity(), OnMapReadyCallback {
                 ActivityConfirmFragment::class.java.canonicalName
             )
         }
+    }
+
+    override fun getLayoutRes(): Int {
+        return R.layout.activity_detail
     }
 
     private fun addListenersForButtons() {

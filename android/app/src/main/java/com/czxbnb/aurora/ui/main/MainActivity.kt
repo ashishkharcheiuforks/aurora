@@ -12,19 +12,11 @@ import com.czxbnb.aurora.ui.activity.ActivityFragment
 import com.czxbnb.aurora.ui.home.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity() {
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
-
+class MainActivity: BaseActivity<MainViewModel, ActivityMainBinding> (MainViewModel::class.java) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        // Bind view model
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(MainViewModel::class.java)
-        binding.viewModel = viewModel
-
+        dataBinding.viewModel = viewModel
         // Define the bottom navigation listener
         navigationView.setOnNavigationItemSelectedListener {item ->
             when(item.itemId){
@@ -53,6 +45,10 @@ class MainActivity : BaseActivity() {
 
         // Set default selected view
         navigationView.selectedItemId = R.id.navigation_home
+    }
+
+    override fun getLayoutRes(): Int {
+        return R.layout.activity_main
     }
 
     /**

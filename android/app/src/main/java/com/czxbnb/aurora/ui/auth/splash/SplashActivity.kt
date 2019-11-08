@@ -1,5 +1,6 @@
 package com.czxbnb.aurora.ui.auth.splash
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.czxbnb.aurora.ui.main.MainActivity
@@ -8,7 +9,7 @@ import com.czxbnb.aurora.base.BaseActivity
 import com.czxbnb.aurora.manager.SharedPreferenceManager
 import com.czxbnb.aurora.ui.auth.login.LoginActivity
 
-class SplashActivity : BaseActivity() {
+class SplashActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
