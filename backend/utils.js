@@ -42,6 +42,22 @@ module.exports = {
         }
     },
 
+    getUserId: (req, res, next) => {
+        const token = req.headers.authorization.split(' ')[1]; // Bearer <token>
+        jwt.verify(token, config.jwtSecret, function (error, decodedToken) {
+            if (error) {
+                let result = {
+                    message: `Authentication error. Token required.`,
+                    status: 401
+                };
+                res.status(401).send(result);
+            } else {
+                req.username = decodedToken.user;
+                next();
+            }
+        })
+    },
+
     connectDatabase: (req, res, next) => {
         pool.getConnection(function (error, connection) {
             let response = {};
