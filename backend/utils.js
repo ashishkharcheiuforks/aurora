@@ -52,7 +52,7 @@ module.exports = {
                 };
                 res.status(401).send(result);
             } else {
-                req.username = decodedToken.user;
+                req.body.username = decodedToken.user;
                 next();
             }
         })
