@@ -2,9 +2,9 @@ package com.czxbnb.aurora.injection.module
 
 import android.annotation.SuppressLint
 import com.czxbnb.aurora.BASE_URL
+import com.czxbnb.aurora.BuildConfig
 import com.czxbnb.aurora.network.ActivityApi
 import com.czxbnb.aurora.network.AuthApi
-import com.czxbnb.aurora.network.PostApi
 import com.czxbnb.aurora.network.converter.AuroraConverterFactory
 import com.google.gson.Gson
 import dagger.Module
@@ -26,18 +26,6 @@ import javax.net.ssl.X509TrustManager
 @Module
 @Suppress("unused")
 object ApiModule {
-    /**
-     * Provides the Post service implementation.
-     * @param retrofit the Retrofit object used to instantiate the service
-     * @return the Post service implementation.
-     */
-    @Provides
-    @Reusable
-    @JvmStatic
-    internal fun providePostApi(retrofit: Retrofit): PostApi {
-        return retrofit.create(PostApi::class.java)
-    }
-
     /**
      * Provides the Auth service implementation.
      * @param retrofit the Retrofit object used to instantiate the service
@@ -107,9 +95,11 @@ object ApiModule {
 
 
             // Add logging interceptor
-            val logging = HttpLoggingInterceptor()
-            logging.level = HttpLoggingInterceptor.Level.BODY
-            builder.addInterceptor(logging)
+            if (BuildConfig.DEBUG) {
+                val logging = HttpLoggingInterceptor()
+                logging.level = HttpLoggingInterceptor.Level.BODY
+                builder.addInterceptor(logging)
+            }
 
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)

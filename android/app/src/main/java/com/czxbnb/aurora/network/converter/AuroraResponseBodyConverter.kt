@@ -1,5 +1,7 @@
 package com.czxbnb.aurora.network.converter
 
+import android.widget.Toast
+import com.czxbnb.aurora.AuroraApplication
 import com.czxbnb.aurora.base.BaseData
 import com.google.android.gms.common.api.ApiException
 import com.google.gson.Gson
@@ -23,7 +25,7 @@ class AuroraResponseBodyConverter<T>(private val converter: Converter<ResponseBo
         if (response.status in 200..299) {
             return response.data
         } else {
-            throw Exception(response.error)
+            throw ApiException(response.error)
         }
     }
 }

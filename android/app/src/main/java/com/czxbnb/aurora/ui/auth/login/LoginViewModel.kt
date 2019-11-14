@@ -8,16 +8,13 @@ import com.czxbnb.aurora.ui.main.MainActivity
 import com.czxbnb.aurora.base.BaseViewModel
 import com.czxbnb.aurora.manager.SharedPreferenceManager
 import com.czxbnb.aurora.model.user.User
-import com.czxbnb.aurora.network.AuthApi
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 import javax.inject.Inject
-import org.json.JSONObject
-import com.czxbnb.aurora.ERROR_TAG
 import com.czxbnb.aurora.model.user.UserCallback
 import com.czxbnb.aurora.model.user.UserRepository
+import com.czxbnb.aurora.utils.NetworrkUtils
+import okhttp3.ResponseBody
 
 
 class
@@ -52,7 +49,7 @@ LoginViewModel(val context: Context) : BaseViewModel() {
             }
 
             override fun onLoadUserFinish() {
-               onLoginFinish()
+                onLoginFinish()
             }
 
             override fun onLoadUserSuccess(user: User) {
@@ -60,7 +57,7 @@ LoginViewModel(val context: Context) : BaseViewModel() {
             }
 
             override fun onLoadUserError(e: Throwable) {
-               onLoginError(e)
+                onLoginError(e)
             }
         })
     }
@@ -87,7 +84,9 @@ LoginViewModel(val context: Context) : BaseViewModel() {
     }
 
     private fun onLoginError(e: Throwable) {
-        errorMessage.value = e.message
+        onErrorOccurred(e)
         isLoggingIn = false
+        loadingVisibility.value = View.GONE
+        textVisibility.value = View.VISIBLE
     }
 }

@@ -103,14 +103,7 @@ class ActivityViewModel(
     }
 
     private fun onLoadActivityListError(e: Throwable) {
-        try {
-            val errorBody = JSONObject((e as HttpException).response().errorBody()!!.string())
-            errorMessage.value = errorBody.getString(ERROR_TAG)
-        } catch (exception: ClassCastException) {
-            exception.printStackTrace()
-        } finally {
-            errorMessage.value = e.message
-        }
+        onErrorOccurred(e)
     }
 
     override fun onCleared() {

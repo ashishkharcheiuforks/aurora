@@ -1,6 +1,5 @@
 package com.czxbnb.aurora.model.activity
 
-import android.annotation.SuppressLint
 import android.content.Context
 import com.czxbnb.aurora.base.BaseRepository
 import com.czxbnb.aurora.manager.SharedPreferenceManager
@@ -8,7 +7,6 @@ import com.czxbnb.aurora.model.AppDatabase
 import com.czxbnb.aurora.network.ActivityApi
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -43,8 +41,8 @@ class ActivityRepository private constructor() : BaseRepository() {
                 if (dbActivityList.isEmpty()) {
                     activityApi.getActivities(SharedPreferenceManager.getInstance(context)?.token)
                         .concatMap { apiActivityList ->
-                            activityDao.insertAll(*apiActivityList.data!!.toTypedArray())
-                            Observable.just(apiActivityList.data)
+                            activityDao.insertAll(*apiActivityList.toTypedArray())
+                            Observable.just(apiActivityList)
                         }
 
                 } else {
@@ -71,7 +69,7 @@ class ActivityRepository private constructor() : BaseRepository() {
             .doOnSubscribe { activityCallback.onLoadActivityStart() }
             .doOnTerminate { activityCallback.onLoadActivityFinish() }
             .subscribe(
-                { result -> result.data?.let { activityCallback.onLoadActivitySuccess(it) } },
+                { result -> activityCallback.onLoadActivitySuccess(result) },
                 { error -> activityCallback.onLoadActivityError(error) }
             )
     }

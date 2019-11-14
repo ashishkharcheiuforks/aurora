@@ -42,7 +42,7 @@ class ActivityEnrolmentRepository private constructor() : BaseRepository() {
             .doOnSubscribe { activityEnrolmentCallback.onEnrollActivityStart() }
             .doOnTerminate { activityEnrolmentCallback.onEnrollActivityFinish() }
             .subscribe(
-                { result -> result.data?.let { activityEnrolmentCallback.onEnrollActivitySuccess(it) } },
+                { result -> activityEnrolmentCallback.onEnrollActivitySuccess(result) },
                 { error -> activityEnrolmentCallback.onEnrollActivityError(error) }
             )
     }

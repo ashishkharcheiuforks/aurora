@@ -10,7 +10,6 @@ import com.czxbnb.aurora.ui.auth.login.LoginViewModel
 import com.czxbnb.aurora.ui.home.HomeActivityViewModel
 import com.czxbnb.aurora.ui.home.HomeViewModel
 import com.czxbnb.aurora.ui.main.MainViewModel
-import com.czxbnb.aurora.ui.post.PostListViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -28,12 +27,6 @@ interface ViewModelComponent {
 
         fun repositoryModule (repositoryModule: RepositoryModule): Builder
     }
-
-    /**
-     * Injects required dependencies into the specified PostListViewModel.
-     * @param postListViewModel PostListViewModel in which to inject the dependencies
-     */
-    fun inject(postListViewModel: PostListViewModel)
 
     /**
      * Injects required dependencies into the specified LoginViewModel

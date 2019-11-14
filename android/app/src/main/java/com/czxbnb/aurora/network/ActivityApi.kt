@@ -14,13 +14,13 @@ interface ActivityApi {
     @GET("api/v1/activity")
     fun getActivities(
         @Header("Authorization") token: String?
-    ): Observable<BaseData<List<Activity>>>
+    ): Observable<List<Activity>>
 
     @GET("api/v1/activity")
     fun getActivityById(
         @Header("Authorization") token: String?,
         @Query("id") id: String?
-    ): Observable<BaseData<List<Activity>>>
+    ): Observable<List<Activity>>
 
     @FormUrlEncoded
     @POST("api/v1/activity/enroll")
@@ -28,5 +28,5 @@ interface ActivityApi {
         @Header("Authorization") token: String?,
         @Field("user_id")user_id: String?,
         @Field("activity_id")activity_id: String?
-    ): Observable<BaseData<ActivityEnrolment>>
+    ): Observable<ActivityEnrolment>
 }

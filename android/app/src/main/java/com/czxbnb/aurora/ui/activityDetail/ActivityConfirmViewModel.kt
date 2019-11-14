@@ -73,7 +73,7 @@ class ActivityConfirmViewModel(val context: Context) : BaseViewModel() {
     }
 
     private fun onViewModelEnrollActivityError(e: Throwable) {
-        errorMessage.value = e.message
+        onErrorOccurred(e)
         progress.value = -1
     }
 }

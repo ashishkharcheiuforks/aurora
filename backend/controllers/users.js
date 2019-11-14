@@ -83,21 +83,21 @@ module.exports = {
                 if (!username) {
                     response.status = 400;
                     response.message = "Username could not be blank";
-                    res.status(200).send(response);
+                    res.status(response.status).send(response);
                 } else if (!password) {
                     response.status = 401;
                     response.message = "Password could not be blank";
-                    res.status(200).send(response);
+                    res.status(response.status).send(response);
                 } else {
                     connection.query(userDao.getUsers, username, function (error, result) {
                         if (error) {
                             response.status = 500;
                             response.message = "Database connection error";
-                            res.status(200).send(response);
+                            res.status(response.status).send(response);
                         } else if (result.length === 0) {
                             response.status = 400;
                             response.message = "User not exist, please check your username";
-                            res.status(200).send(response);
+                            res.status(response.status).send(response);
                         } else {
                             bcrypt.compare(password, result[0].password).then(match => {
                                 if (match) {
@@ -116,11 +116,11 @@ module.exports = {
                                         username: username,
                                         token: token
                                     };
-                                    res.status(200).send(response)
+                                    res.status(response.status).send(response)
                                 } else {
                                     response.status = 400;
                                     response.message = "Password is not correct, please check and try again.";
-                                    res.status(200).send(response);
+                                    res.status(response.status).send(response);
                                 }
                             })
                         }

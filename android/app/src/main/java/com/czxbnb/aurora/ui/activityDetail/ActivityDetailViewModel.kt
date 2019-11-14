@@ -34,6 +34,5 @@ class ActivityDetailViewModel(val context: Context) : BaseViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        //subscription.dispose()
     }
 }

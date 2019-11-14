@@ -13,7 +13,8 @@ import com.czxbnb.aurora.ui.auth.login.LoginViewModel
 import com.czxbnb.aurora.ui.home.HomeActivityViewModel
 import com.czxbnb.aurora.ui.home.HomeViewModel
 import com.czxbnb.aurora.ui.main.MainViewModel
-import com.czxbnb.aurora.ui.post.PostListViewModel
+import com.czxbnb.aurora.utils.NetworrkUtils
+import retrofit2.HttpException
 
 abstract class BaseViewModel : ViewModel() {
     private val component: ViewModelComponent = DaggerViewModelComponent
@@ -29,8 +30,7 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     private fun inject() {
-        when(this) {
-            is PostListViewModel -> component.inject(this)
+        when (this) {
             is LoginViewModel -> component.inject(this)
             is MainViewModel -> component.inject(this)
             is HomeViewModel -> component.inject(this)
@@ -38,6 +38,14 @@ abstract class BaseViewModel : ViewModel() {
             is ActivityViewModel -> component.inject(this)
             is ActivityDetailViewModel -> component.inject(this)
             is ActivityConfirmViewModel -> component.inject(this)
+        }
+    }
+
+    fun onErrorOccurred(e: Throwable) {
+        if (e is HttpException) {
+            errorMessage.value = NetworrkUtils.getErrorMessage(e)
+        } else {
+            errorMessage.value = "Unknown error occurred, please try again later."
         }
     }
 }
