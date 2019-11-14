@@ -38,7 +38,7 @@ class UserRepository private constructor() : BaseRepository() {
             .doOnSubscribe { userCallback.onLoadUserStart() }
             .doOnTerminate { userCallback.onLoadUserFinish() }
             .subscribe(
-                { result -> userCallback.onLoadUserSuccess(result.data) },
+                { result -> userCallback.onLoadUserSuccess(result) },
                 { error -> userCallback.onLoadUserError(error) }
             )
     }

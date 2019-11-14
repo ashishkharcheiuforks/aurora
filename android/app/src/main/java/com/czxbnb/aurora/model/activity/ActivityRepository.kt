@@ -43,7 +43,7 @@ class ActivityRepository private constructor() : BaseRepository() {
                 if (dbActivityList.isEmpty()) {
                     activityApi.getActivities(SharedPreferenceManager.getInstance(context)?.token)
                         .concatMap { apiActivityList ->
-                            activityDao.insertAll(*apiActivityList.data.toTypedArray())
+                            activityDao.insertAll(*apiActivityList.data!!.toTypedArray())
                             Observable.just(apiActivityList.data)
                         }
 
@@ -71,7 +71,7 @@ class ActivityRepository private constructor() : BaseRepository() {
             .doOnSubscribe { activityCallback.onLoadActivityStart() }
             .doOnTerminate { activityCallback.onLoadActivityFinish() }
             .subscribe(
-                { result -> activityCallback.onLoadActivitySuccess(result.data) },
+                { result -> result.data?.let { activityCallback.onLoadActivitySuccess(it) } },
                 { error -> activityCallback.onLoadActivityError(error) }
             )
     }

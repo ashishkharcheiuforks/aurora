@@ -87,8 +87,7 @@ LoginViewModel(val context: Context) : BaseViewModel() {
     }
 
     private fun onLoginError(e: Throwable) {
-        val errorBody = JSONObject((e as HttpException).response().errorBody()!!.string())
-        errorMessage.value = errorBody.getString(ERROR_TAG)
+        errorMessage.value = e.message
         isLoggingIn = false
     }
 }

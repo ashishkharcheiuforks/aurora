@@ -20,5 +20,5 @@ interface AuthApi {
     fun login(
         @Field("username") username: String,
         @Field("password") password: String
-    ): Observable<BaseData<User>>
+    ): Observable<User>
 }

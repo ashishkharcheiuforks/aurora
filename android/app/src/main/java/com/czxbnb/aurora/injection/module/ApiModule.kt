@@ -6,6 +6,7 @@ import com.czxbnb.aurora.network.ActivityApi
 import com.czxbnb.aurora.network.AuthApi
 import com.czxbnb.aurora.network.PostApi
 import com.czxbnb.aurora.network.converter.AuroraConverterFactory
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -113,7 +114,7 @@ object ApiModule {
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(builder.build())
-                .addConverterFactory(AuroraConverterFactory.create())
+                .addConverterFactory(AuroraConverterFactory(Gson()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .build()
         } catch (e: Exception) {
