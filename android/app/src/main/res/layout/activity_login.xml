@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.czxbnb.aurora.ui.auth.login.LoginViewModel" />
+            type="com.czxbnb.aurora.ui.login.LoginViewModel" />
     </data>
 
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"

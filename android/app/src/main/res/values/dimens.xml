@@ -27,11 +27,13 @@
     <dimen name="appbar_padding_top">8dp</dimen>
 
     <!-- specific spacing -->
-    <dimen name="app_bar_height_image_view">250dp</dimen>
+    <dimen name="app_bar_height_image_view">300dp</dimen>
 
     <!-- height -->
     <dimen name="btn_height">40dp</dimen>
 
     <dimen name="text_size_button">16sp</dimen>
+    <dimen name="text_size_title">28sp</dimen>
+    <dimen name="text_size_title_small">14sp</dimen>
 
 </resources>

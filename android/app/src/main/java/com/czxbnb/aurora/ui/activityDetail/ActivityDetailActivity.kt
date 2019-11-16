@@ -54,9 +54,6 @@ class ActivityDetailActivity : BaseActivity<ActivityDetailViewModel, ActivityDet
         activity.content = Html.fromHtml(activity.content).toString()
         activity.requirements = Html.fromHtml(activity.requirements).toString()
 
-        // Add listeners for buttons
-        addListenersForButtons()
-
         // Initialize map
         supportMapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         supportMapFragment.getMapAsync(this)
@@ -76,43 +73,6 @@ class ActivityDetailActivity : BaseActivity<ActivityDetailViewModel, ActivityDet
 
     override fun getLayoutRes(): Int {
         return R.layout.activity_detail
-    }
-
-    private fun addListenersForButtons() {
-        ll_container_description.setOnClickListener {
-            toggleSection(btn_description, ll_description)
-        }
-
-        btn_description.setOnClickListener {
-            toggleSection(btn_description, ll_description)
-        }
-
-        ll_container_time.setOnClickListener {
-            toggleSection(btn_time, ll_time)
-        }
-
-        btn_time.setOnClickListener {
-            toggleSection(btn_time, ll_time)
-        }
-
-        ll_container_location.setOnClickListener {
-            toggleSection(btn_location, ll_location)
-        }
-
-        btn_location.setOnClickListener {
-            toggleSection(btn_location, ll_location)
-        }
-
-        ll_container_requirement.setOnClickListener {
-            toggleSection(btn_requirement, ll_requirement)
-        }
-
-        btn_requirement.setOnClickListener {
-            toggleSection(btn_requirement, ll_requirement)
-        }
-
-        toggleSection(btn_description, ll_description)
-        toggleSection(btn_time, ll_time)
     }
 
     private fun toggleSection(bt: View, lyt: View) {

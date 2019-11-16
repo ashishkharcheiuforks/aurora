@@ -27,8 +27,10 @@ class ActivityConfirmFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Bind view model
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_activity_confirm, container,false)
-        viewModel = ViewModelProviders.of(this,  context?.let { ViewModelFactory(it) }).get(ActivityConfirmViewModel::class.java)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_activity_confirm, container, false)
+        viewModel = ViewModelProviders.of(this, context?.let { ViewModelFactory(it) })
+            .get(ActivityConfirmViewModel::class.java)
         binding.viewModel = viewModel
 
         // Get activity value from bundle, and inject into viewModel
@@ -36,8 +38,8 @@ class ActivityConfirmFragment : BottomSheetDialogFragment() {
 
         // Set progress button status and listener
         binding.root.btn_enroll.setMode(ActionProcessButton.Mode.ENDLESS)
-        binding.root.btn_enroll.setOnClickListener {view ->
-            viewModel.enrollActivity( "1")
+        binding.root.btn_enroll.setOnClickListener { view ->
+            viewModel.enrollActivity(viewModel.getActivity().value!!.id)
         }
 
         // Set observer for progress button
@@ -48,6 +50,19 @@ class ActivityConfirmFragment : BottomSheetDialogFragment() {
         // Add error observer
         viewModel.errorMessage.observe(this, Observer { errorMessage ->
             if (errorMessage != null) showError(errorMessage)
+        })
+
+        // Add progress observer
+        viewModel.progress.observe(this, Observer { progress ->
+            if (progress == 100) {
+                btn_enroll.isEnabled = false
+                Toast.makeText(
+                    context,
+                    "You have successfully enrolled in this activity!",
+                    Toast.LENGTH_LONG
+                ).show()
+                activity!!.onBackPressed()
+            }
         })
 
         return binding.root

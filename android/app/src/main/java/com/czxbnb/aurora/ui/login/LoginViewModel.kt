@@ -1,4 +1,4 @@
-package com.czxbnb.aurora.ui.auth.login
+package com.czxbnb.aurora.ui.login
 
 import android.content.Context
 import android.content.Intent
