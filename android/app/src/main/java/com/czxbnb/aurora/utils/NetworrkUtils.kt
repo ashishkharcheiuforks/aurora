@@ -5,7 +5,7 @@ import okhttp3.ResponseBody
 import retrofit2.HttpException
 
 
-class NetworrkUtils {
+class NetworkUtils {
     companion object {
         fun getErrorMessage(throwable: HttpException): String? {
             try {
@@ -17,5 +17,4 @@ class NetworrkUtils {
             }
         }
     }
-
 }

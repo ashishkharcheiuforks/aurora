@@ -13,7 +13,7 @@ import com.czxbnb.aurora.ui.auth.login.LoginViewModel
 import com.czxbnb.aurora.ui.home.HomeActivityViewModel
 import com.czxbnb.aurora.ui.home.HomeViewModel
 import com.czxbnb.aurora.ui.main.MainViewModel
-import com.czxbnb.aurora.utils.NetworrkUtils
+import com.czxbnb.aurora.utils.NetworkUtils
 import retrofit2.HttpException
 
 abstract class BaseViewModel : ViewModel() {
@@ -43,7 +43,7 @@ abstract class BaseViewModel : ViewModel() {
 
     fun onErrorOccurred(e: Throwable) {
         if (e is HttpException) {
-            errorMessage.value = NetworrkUtils.getErrorMessage(e)
+            errorMessage.value = NetworkUtils.getErrorMessage(e)
         } else {
             errorMessage.value = "Unknown error occurred, please try again later."
         }

@@ -1,4 +1,4 @@
-package com.czxbnb.aurora.utils
+package com.czxbnb.aurora.view
 
 import android.view.View
 import android.widget.ImageView

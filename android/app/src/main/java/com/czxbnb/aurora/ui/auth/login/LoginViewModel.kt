@@ -9,12 +9,9 @@ import com.czxbnb.aurora.base.BaseViewModel
 import com.czxbnb.aurora.manager.SharedPreferenceManager
 import com.czxbnb.aurora.model.user.User
 import io.reactivex.disposables.Disposable
-import retrofit2.HttpException
 import javax.inject.Inject
 import com.czxbnb.aurora.model.user.UserCallback
 import com.czxbnb.aurora.model.user.UserRepository
-import com.czxbnb.aurora.utils.NetworrkUtils
-import okhttp3.ResponseBody
 
 
 class
