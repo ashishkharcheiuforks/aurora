@@ -3,21 +3,12 @@ package com.czxbnb.aurora.ui.activity
 import android.content.Context
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import com.czxbnb.aurora.ERROR_TAG
 import com.czxbnb.aurora.base.BaseViewModel
-import com.czxbnb.aurora.manager.SharedPreferenceManager
 import com.czxbnb.aurora.model.activity.Activity
 import com.czxbnb.aurora.model.activity.ActivityCallback
-import com.czxbnb.aurora.model.activity.ActivityDao
 import com.czxbnb.aurora.model.activity.ActivityRepository
-import com.czxbnb.aurora.network.ActivityApi
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.czxbnb.aurora.ui.error.NoInternetFragment
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import org.json.JSONObject
-import retrofit2.HttpException
-import java.lang.ClassCastException
 import javax.inject.Inject
 
 class ActivityViewModel(
@@ -42,7 +33,7 @@ class ActivityViewModel(
         getActivityList()
     }
 
-    private fun getActivityList() {
+    fun getActivityList() {
         activitySubscription = activityRepository.loadActivityList(context, object : ActivityCallback {
             override fun onLoadActivityStart() {
                 onLoadActivityListStart()

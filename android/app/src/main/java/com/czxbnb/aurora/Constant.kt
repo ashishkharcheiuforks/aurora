@@ -11,4 +11,3 @@ const val BASE_URL: String = "https://68.183.183.235:3000/"
  * The tag that contains error information is "message"
  */
 const val ERROR_TAG: String = "message"
-

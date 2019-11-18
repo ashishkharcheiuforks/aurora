@@ -55,8 +55,6 @@
 
         </activity>
 
-        <activity android:name=".ui.PostListActivity" />
-
         <activity android:name=".ui.main.MainActivity" />
 
         <activity android:name=".ui.activityDetail.ActivityDetailActivity" />

@@ -10,7 +10,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.czxbnb.aurora.R
 import com.czxbnb.aurora.injection.ViewModelFactory
+import com.czxbnb.aurora.ui.error.NoInternetFragment
+import kotlinx.android.synthetic.main.activity_main.view.*
+
 
 abstract class BaseFragment<ViewModel : BaseViewModel, DataBinding : ViewDataBinding>(
     private val viewModelClass: Class<ViewModel>
@@ -30,6 +34,14 @@ abstract class BaseFragment<ViewModel : BaseViewModel, DataBinding : ViewDataBin
         dataBinding.lifecycleOwner = this
         viewModel.errorMessage.observe(this, Observer { errorMessage ->
             if (errorMessage != null) showError(errorMessage)
+            val fragment = NoInternetFragment()
+            activity!!.supportFragmentManager.beginTransaction().apply {
+                if (fragment.isAdded) {
+                    show(fragment)
+                } else {
+                    add(R.id.container, fragment)
+                }
+            }.commit()
         })
         return dataBinding.root
     }
