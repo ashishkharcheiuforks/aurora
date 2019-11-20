@@ -27,4 +27,6 @@
     <string name="activity_detail">Activity Detail</string>
     <string name="no_internet">No internet connections found. Check your connection or try again</string>
     <string name="whoops">Whoops!</string>
+    <string name="enrolled_activity">Enrolled Activity</string>
+    <string name="personal_information">Personal Information</string>
 </resources>

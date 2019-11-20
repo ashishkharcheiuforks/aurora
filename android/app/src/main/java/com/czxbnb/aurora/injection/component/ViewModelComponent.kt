@@ -10,6 +10,7 @@ import com.czxbnb.aurora.ui.login.LoginViewModel
 import com.czxbnb.aurora.ui.home.HomeActivityViewModel
 import com.czxbnb.aurora.ui.home.HomeViewModel
 import com.czxbnb.aurora.ui.main.MainViewModel
+import com.czxbnb.aurora.ui.profile.ProfileViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -75,4 +76,10 @@ interface ViewModelComponent {
      * @param activityConfirmViewModel activityConfirmViewModel in which to inject the dependencies
      */
     fun inject(activityConfirmViewModel: ActivityConfirmViewModel)
+
+    /**
+     * Injects required dependencies into the specified profileViewModel
+     * @param profileViewModel profileViewModel in which to inject the dependencies
+     */
+    fun inject(profileViewModel: ProfileViewModel)
 }
