@@ -35,6 +35,7 @@ abstract class BaseFragment<ViewModel : BaseViewModel, DataBinding : ViewDataBin
         viewModel.errorMessage.observe(this, Observer { errorMessage ->
             if (errorMessage != null) showError(errorMessage)
             val fragment = NoInternetFragment()
+
             activity!!.supportFragmentManager.beginTransaction().apply {
                 if (fragment.isAdded) {
                     show(fragment)

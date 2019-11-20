@@ -15,6 +15,7 @@ import com.czxbnb.aurora.ui.home.HomeViewModel
 import com.czxbnb.aurora.ui.main.MainViewModel
 import com.czxbnb.aurora.utils.NetworkUtils
 import retrofit2.HttpException
+import java.net.ConnectException
 
 abstract class BaseViewModel : ViewModel() {
     private val component: ViewModelComponent = DaggerViewModelComponent
@@ -44,6 +45,8 @@ abstract class BaseViewModel : ViewModel() {
     fun onErrorOccurred(e: Throwable) {
         if (e is HttpException) {
             errorMessage.value = NetworkUtils.getErrorMessage(e)
+        } else if (e is ConnectException){
+            errorMessage.value = "Please check your network"
         } else {
             errorMessage.value = "Unknown error occurred, please try again later."
         }
