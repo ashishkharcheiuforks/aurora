@@ -43,9 +43,7 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     fun onErrorOccurred(e: Throwable) {
-        if (e is HttpException) {
-            errorMessage.value = NetworkUtils.getErrorMessage(e)
-        } else if (e is ConnectException){
+       if (e is ConnectException){
             errorMessage.value = "Please check your network"
         } else {
             errorMessage.value = "Unknown error occurred, please try again later."

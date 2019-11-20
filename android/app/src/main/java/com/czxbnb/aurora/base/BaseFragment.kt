@@ -12,8 +12,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.czxbnb.aurora.R
 import com.czxbnb.aurora.injection.ViewModelFactory
+import com.czxbnb.aurora.model.event_bus.MessageEvent
 import com.czxbnb.aurora.ui.error.NoInternetFragment
 import kotlinx.android.synthetic.main.activity_main.view.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 
 abstract class BaseFragment<ViewModel : BaseViewModel, DataBinding : ViewDataBinding>(
@@ -32,10 +35,12 @@ abstract class BaseFragment<ViewModel : BaseViewModel, DataBinding : ViewDataBin
             ViewModelProviders.of(this, context?.let { ViewModelFactory(it) }).get(viewModelClass)
         super.onCreateView(inflater, container, savedInstanceState)
         dataBinding.lifecycleOwner = this
+
+        // Observe Error
         viewModel.errorMessage.observe(this, Observer { errorMessage ->
             if (errorMessage != null) showError(errorMessage)
-            val fragment = NoInternetFragment()
 
+            val fragment = NoInternetFragment()
             activity!!.supportFragmentManager.beginTransaction().apply {
                 if (fragment.isAdded) {
                     show(fragment)
@@ -44,6 +49,10 @@ abstract class BaseFragment<ViewModel : BaseViewModel, DataBinding : ViewDataBin
                 }
             }.commit()
         })
+
+        // Register event bus receiver
+        EventBus.getDefault().register(this)
+
         return dataBinding.root
     }
 
@@ -51,6 +60,18 @@ abstract class BaseFragment<ViewModel : BaseViewModel, DataBinding : ViewDataBin
 
     private fun showError(errorMessage: String) {
         Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        // Unregister event bus receiver
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    fun onErrorEvent(messageEvent: MessageEvent) {
+        Toast.makeText(context,messageEvent.message, Toast.LENGTH_LONG).show()
     }
 }
 

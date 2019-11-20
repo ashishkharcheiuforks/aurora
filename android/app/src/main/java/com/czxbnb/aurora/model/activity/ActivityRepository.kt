@@ -4,7 +4,7 @@ import android.content.Context
 import com.czxbnb.aurora.base.BaseRepository
 import com.czxbnb.aurora.manager.SharedPreferenceManager
 import com.czxbnb.aurora.model.AppDatabase
-import com.czxbnb.aurora.network.ActivityApi
+import com.czxbnb.aurora.network.api.ActivityApi
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

@@ -1,4 +1,4 @@
-package com.czxbnb.aurora.network
+package com.czxbnb.aurora.network.api
 
 import com.czxbnb.aurora.base.BaseData
 import com.czxbnb.aurora.model.activity.Activity

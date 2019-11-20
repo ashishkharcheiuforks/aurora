@@ -1,7 +1,7 @@
 package com.czxbnb.aurora.model.user
 
 import com.czxbnb.aurora.base.BaseRepository
-import com.czxbnb.aurora.network.AuthApi
+import com.czxbnb.aurora.network.api.AuthApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers

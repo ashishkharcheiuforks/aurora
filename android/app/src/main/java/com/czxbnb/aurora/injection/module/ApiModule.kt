@@ -3,8 +3,8 @@ package com.czxbnb.aurora.injection.module
 import android.annotation.SuppressLint
 import com.czxbnb.aurora.BASE_URL
 import com.czxbnb.aurora.BuildConfig
-import com.czxbnb.aurora.network.ActivityApi
-import com.czxbnb.aurora.network.AuthApi
+import com.czxbnb.aurora.network.api.ActivityApi
+import com.czxbnb.aurora.network.api.AuthApi
 import com.czxbnb.aurora.network.converter.AuroraConverterFactory
 import com.google.gson.Gson
 import dagger.Module

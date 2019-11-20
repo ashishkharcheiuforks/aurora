@@ -7,7 +7,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.czxbnb.aurora.R
 import com.czxbnb.aurora.injection.ViewModelFactory
+import com.czxbnb.aurora.ui.error.NoInternetFragment
 import com.gyf.immersionbar.ImmersionBar
 
 abstract class BaseActivity<ViewModel : BaseViewModel, DataBinding : ViewDataBinding>(
@@ -28,8 +30,18 @@ abstract class BaseActivity<ViewModel : BaseViewModel, DataBinding : ViewDataBin
         dataBinding = DataBindingUtil.setContentView(this, getLayoutRes())
         viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(viewModelClass)
         dataBinding.lifecycleOwner = this
+
+        // Observe error
         viewModel.errorMessage.observe(this, Observer { errorMessage ->
             if (errorMessage != null) showError(errorMessage)
+            val fragment = NoInternetFragment()
+            supportFragmentManager.beginTransaction().apply {
+                if (fragment.isAdded) {
+                    show(fragment)
+                } else {
+                    add(R.id.container, fragment)
+                }
+            }.commit()
         })
     }
 

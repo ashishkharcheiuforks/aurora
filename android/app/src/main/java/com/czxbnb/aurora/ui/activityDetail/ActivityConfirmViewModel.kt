@@ -2,22 +2,13 @@ package com.czxbnb.aurora.ui.activityDetail
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import com.czxbnb.aurora.ERROR_TAG
-import com.czxbnb.aurora.base.BaseData
-import com.czxbnb.aurora.base.BaseRepository
 import com.czxbnb.aurora.base.BaseViewModel
-import com.czxbnb.aurora.manager.SharedPreferenceManager
 import com.czxbnb.aurora.model.activity.Activity
 import com.czxbnb.aurora.model.activity_enrolment.ActivityEnrolment
 import com.czxbnb.aurora.model.activity_enrolment.ActivityEnrolmentCallback
 import com.czxbnb.aurora.model.activity_enrolment.ActivityEnrolmentRepository
-import com.czxbnb.aurora.network.ActivityApi
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.czxbnb.aurora.network.api.ActivityApi
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import org.json.JSONException
-import org.json.JSONObject
-import retrofit2.HttpException
 import javax.inject.Inject
 
 class ActivityConfirmViewModel(val context: Context) : BaseViewModel() {

@@ -110,4 +110,7 @@ dependencies {
 
     // Android process button
     implementation "com.github.dmytrodanylyk.android-process-button:library:$process_button_version"
+
+    // EventBus
+    implementation "org.greenrobot:eventbus:$eventbus_version"
 }
