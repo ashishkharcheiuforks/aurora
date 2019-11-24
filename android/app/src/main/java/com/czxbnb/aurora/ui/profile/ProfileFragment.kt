@@ -20,9 +20,9 @@ class ProfileFragment : BaseFragment<ProfileViewModel, FragmentProfileBinding>(P
         return dataBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//    }
 
     override fun getLayoutRes(): Int {
         return R.layout.fragment_profile
