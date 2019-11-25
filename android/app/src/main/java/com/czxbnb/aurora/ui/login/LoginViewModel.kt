@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import androidx.lifecycle.MutableLiveData
+import com.czxbnb.aurora.AuroraApplication
 import com.czxbnb.aurora.ui.main.MainActivity
 import com.czxbnb.aurora.base.BaseViewModel
 import com.czxbnb.aurora.manager.SharedPreferenceManager
@@ -15,7 +16,7 @@ import com.czxbnb.aurora.model.user.UserRepository
 
 
 class
-LoginViewModel(val context: Context) : BaseViewModel() {
+LoginViewModel: BaseViewModel() {
     @Inject
     lateinit var userRepository: UserRepository
 
@@ -73,11 +74,14 @@ LoginViewModel(val context: Context) : BaseViewModel() {
 
     private fun onLoginSuccess(user: User) {
         // Save the token in preference
-        SharedPreferenceManager.getInstance(context)?.token = user.token
+        SharedPreferenceManager.getInstance(AuroraApplication.getApplicationContext())?.token = user.token
+
+        // Save the user information in preference
+        SharedPreferenceManager.getInstance(AuroraApplication.getApplicationContext())?.user = user
 
         // Redirect to main page
-        val intent = Intent(context, MainActivity::class.java)
-        context.startActivity(intent)
+        val intent = Intent(AuroraApplication.getApplicationContext(), MainActivity::class.java)
+        AuroraApplication.getApplicationContext().startActivity(intent)
     }
 
     private fun onLoginError(e: Throwable) {

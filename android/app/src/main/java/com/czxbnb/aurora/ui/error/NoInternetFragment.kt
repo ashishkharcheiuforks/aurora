@@ -21,7 +21,7 @@ class NoInternetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btn_retry.setOnClickListener {
-            activity!!.supportFragmentManager.beginTransaction().hide(this).commit()
+            childFragmentManager.beginTransaction().hide(this).commit()
         }
     }
 }

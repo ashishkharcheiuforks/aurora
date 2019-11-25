@@ -7,7 +7,7 @@ import com.czxbnb.aurora.model.activity.Activity
 import com.czxbnb.aurora.network.api.ActivityApi
 import javax.inject.Inject
 
-class ActivityDetailViewModel(val context: Context) : BaseViewModel() {
+class ActivityDetailViewModel : BaseViewModel() {
     @Inject
     lateinit var activityApi: ActivityApi
     // private lateinit var subscription: Disposable

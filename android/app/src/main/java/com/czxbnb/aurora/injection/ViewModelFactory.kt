@@ -19,24 +19,23 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
         when {
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
-                return LoginViewModel(context) as T
+                return LoginViewModel() as T
             }
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
-                return MainViewModel(context) as T
+                return MainViewModel() as T
             }
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
-                return HomeViewModel(context) as T
+                return HomeViewModel() as T
             }
             modelClass.isAssignableFrom(HomeActivityViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
                 return HomeActivityViewModel() as T
             }
             modelClass.isAssignableFrom(ActivityViewModel::class.java) -> {
-                val db = AppDatabase.getInstance(context)
                 @Suppress("UNCHECKED_CAST")
-                return ActivityViewModel(context) as T
+                return ActivityViewModel() as T
             }
             modelClass.isAssignableFrom(ActivityItemViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
@@ -44,15 +43,15 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
             }
             modelClass.isAssignableFrom(ActivityDetailViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
-                return ActivityDetailViewModel(context) as T
+                return ActivityDetailViewModel() as T
             }
             modelClass.isAssignableFrom(ActivityConfirmViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
-                return ActivityConfirmViewModel(context) as T
+                return ActivityConfirmViewModel() as T
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
-                return ProfileViewModel(context) as T
+                return ProfileViewModel() as T
             }
         }
         throw IllegalArgumentException("Unknown ViewModel Class")

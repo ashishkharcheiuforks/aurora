@@ -2,6 +2,7 @@ package com.czxbnb.aurora.ui.activityDetail
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
+import com.czxbnb.aurora.AuroraApplication
 import com.czxbnb.aurora.base.BaseViewModel
 import com.czxbnb.aurora.model.activity.Activity
 import com.czxbnb.aurora.model.activity_enrolment.ActivityEnrolment
@@ -11,7 +12,7 @@ import com.czxbnb.aurora.network.api.ActivityApi
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-class ActivityConfirmViewModel(val context: Context) : BaseViewModel() {
+class ActivityConfirmViewModel: BaseViewModel() {
     @Inject
     lateinit var activityApi: ActivityApi
 
@@ -32,7 +33,8 @@ class ActivityConfirmViewModel(val context: Context) : BaseViewModel() {
     }
 
     fun enrollActivity(activityId: String) {
-        enrollSubscription = activityEnrolmentRepository.enrollActivity(context, activityId, object : ActivityEnrolmentCallback {
+        enrollSubscription = activityEnrolmentRepository.enrollActivity(AuroraApplication.getApplicationContext(),
+            activityId, object : ActivityEnrolmentCallback {
             override fun onEnrollActivityStart() {
                 onViewModelEnrollActivityStart()
             }

@@ -3,6 +3,7 @@ package com.czxbnb.aurora.ui.activity
 import android.content.Context
 import android.view.View
 import androidx.lifecycle.MutableLiveData
+import com.czxbnb.aurora.AuroraApplication
 import com.czxbnb.aurora.base.BaseViewModel
 import com.czxbnb.aurora.model.activity.Activity
 import com.czxbnb.aurora.model.activity.ActivityCallback
@@ -11,9 +12,7 @@ import com.czxbnb.aurora.ui.error.NoInternetFragment
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-class ActivityViewModel(
-    val context: Context
-) : BaseViewModel() {
+class ActivityViewModel: BaseViewModel() {
     // Data Repository
     @Inject
     lateinit var activityRepository: ActivityRepository
@@ -34,7 +33,8 @@ class ActivityViewModel(
     }
 
     fun getActivityList() {
-        activitySubscription = activityRepository.loadActivityList(context, object : ActivityCallback {
+        activitySubscription = activityRepository.loadActivityList(AuroraApplication.getApplicationContext(),
+            object : ActivityCallback {
             override fun onLoadActivityStart() {
                 onLoadActivityListStart()
             }
@@ -54,7 +54,8 @@ class ActivityViewModel(
     }
 
     fun refreshActivityListFromRemoteSource() {
-        activityRefreshSubscription = activityRepository.loadActivityListFromRemoteArea(context, object : ActivityCallback {
+        activityRefreshSubscription = activityRepository.loadActivityListFromRemoteArea(AuroraApplication.getApplicationContext(),
+            object : ActivityCallback {
             override fun onLoadActivityStart() {
                 onRefreshActivityListStart()
             }

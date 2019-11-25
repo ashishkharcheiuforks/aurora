@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import androidx.lifecycle.MutableLiveData
+import com.czxbnb.aurora.AuroraApplication
 import com.czxbnb.aurora.base.BaseViewModel
 import com.czxbnb.aurora.model.activity.Activity
 import io.reactivex.disposables.Disposable
@@ -16,9 +17,7 @@ import retrofit2.HttpException
 import java.lang.ClassCastException
 
 
-class HomeViewModel(
-    val context: Context
-) : BaseViewModel() {
+class HomeViewModel: BaseViewModel() {
     // Data Repository
     @Inject
     lateinit var activityRepository: ActivityRepository
@@ -36,7 +35,8 @@ class HomeViewModel(
 
     private fun getActivityList() {
         // get the activity list
-        activitySubscription = activityRepository.loadActivityList(context, object: ActivityCallback {
+        activitySubscription = activityRepository.loadActivityList(AuroraApplication.getApplicationContext(),
+            object: ActivityCallback {
             override fun onLoadActivityStart() {
                onLoadActivityListStart()
             }
