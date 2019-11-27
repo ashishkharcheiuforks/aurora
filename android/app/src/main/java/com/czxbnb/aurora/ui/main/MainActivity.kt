@@ -10,6 +10,7 @@ import com.czxbnb.aurora.databinding.ActivityMainBinding
 import com.czxbnb.aurora.injection.ViewModelFactory
 import com.czxbnb.aurora.ui.activity.ActivityFragment
 import com.czxbnb.aurora.ui.home.HomeFragment
+import com.czxbnb.aurora.ui.news.NewsFragment
 import com.czxbnb.aurora.ui.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -28,6 +29,8 @@ class MainActivity: BaseActivity<MainViewModel, ActivityMainBinding> (MainViewMo
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.navigation_news -> {
+                    val newsFragment = NewsFragment()
+                    openFragment(newsFragment)
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.navigation_activity -> {

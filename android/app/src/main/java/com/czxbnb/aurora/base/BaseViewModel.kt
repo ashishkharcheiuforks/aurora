@@ -13,6 +13,7 @@ import com.czxbnb.aurora.ui.login.LoginViewModel
 import com.czxbnb.aurora.ui.home.HomeActivityViewModel
 import com.czxbnb.aurora.ui.home.HomeViewModel
 import com.czxbnb.aurora.ui.main.MainViewModel
+import com.czxbnb.aurora.ui.news.NewsViewModel
 import com.czxbnb.aurora.ui.profile.ProfileViewModel
 import com.czxbnb.aurora.utils.NetworkUtils
 import retrofit2.HttpException
@@ -41,6 +42,7 @@ abstract class BaseViewModel : ViewModel() {
             is ActivityDetailViewModel -> component.inject(this)
             is ActivityConfirmViewModel -> component.inject(this)
             is ProfileViewModel -> component.inject(this)
+            is NewsViewModel -> component.inject(this)
         }
     }
 

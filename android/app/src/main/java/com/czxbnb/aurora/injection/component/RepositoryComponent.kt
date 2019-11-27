@@ -3,6 +3,7 @@ package com.czxbnb.aurora.injection.component
 import com.czxbnb.aurora.injection.module.ApiModule
 import com.czxbnb.aurora.model.activity.ActivityRepository
 import com.czxbnb.aurora.model.activity_enrolment.ActivityEnrolmentRepository
+import com.czxbnb.aurora.model.news.NewsRepository
 import com.czxbnb.aurora.model.user.UserRepository
 import dagger.Component
 import javax.inject.Singleton
@@ -34,4 +35,11 @@ interface RepositoryComponent {
      * @param userRepository user repository in which to inject the dependencies
      */
     fun inject(userRepository: UserRepository)
+
+
+    /**
+     * Injects required dependencies into the specified newsRepository
+     * @param newsRepository news repository in which to inject the dependencies
+     */
+    fun inject(newsRepository: NewsRepository)
 }

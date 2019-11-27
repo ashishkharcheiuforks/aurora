@@ -6,9 +6,10 @@ import com.czxbnb.aurora.injection.component.RepositoryComponent
 import com.czxbnb.aurora.injection.module.ApiModule
 import com.czxbnb.aurora.model.activity.ActivityRepository
 import com.czxbnb.aurora.model.activity_enrolment.ActivityEnrolmentRepository
+import com.czxbnb.aurora.model.news.NewsRepository
 import com.czxbnb.aurora.model.user.UserRepository
 
-abstract class BaseRepository () {
+abstract class BaseRepository() {
     private val component: RepositoryComponent = DaggerRepositoryComponent
         .builder()
         .apiModule(ApiModule)
@@ -19,10 +20,11 @@ abstract class BaseRepository () {
     }
 
     private fun inject() {
-        when(this) {
+        when (this) {
             is UserRepository -> component.inject(this)
             is ActivityRepository -> component.inject(this)
             is ActivityEnrolmentRepository -> component.inject(this)
+            is NewsRepository -> component.inject(this)
         }
     }
 }

@@ -37,18 +37,18 @@ abstract class BaseFragment<ViewModel : BaseViewModel, DataBinding : ViewDataBin
         dataBinding.lifecycleOwner = this
 
         // Observe Error
-        viewModel.errorMessage.observe(this, Observer { errorMessage ->
-            if (errorMessage != null) showError(errorMessage)
-
-            val fragment = NoInternetFragment()
-            childFragmentManager.beginTransaction().apply {
-                if (fragment.isAdded) {
-                    show(fragment)
-                } else {
-                    add(R.id.container, fragment)
-                }
-            }.commit()
-        })
+//        viewModel.errorMessage.observe(this, Observer { errorMessage ->
+//            if (errorMessage != null) showError(errorMessage)
+//
+//            val fragment = NoInternetFragment()
+//            childFragmentManager.beginTransaction().apply {
+//                if (fragment.isAdded) {
+//                    show(fragment)
+//                } else {
+//                    add(R.id.container, fragment)
+//                }
+//            }.commit()
+//        })
 
         // Register event bus receiver
         EventBus.getDefault().register(this)

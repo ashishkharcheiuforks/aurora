@@ -10,6 +10,8 @@ import com.czxbnb.aurora.ui.login.LoginViewModel
 import com.czxbnb.aurora.ui.home.HomeActivityViewModel
 import com.czxbnb.aurora.ui.home.HomeViewModel
 import com.czxbnb.aurora.ui.main.MainViewModel
+import com.czxbnb.aurora.ui.news.NewsItemViewModel
+import com.czxbnb.aurora.ui.news.NewsViewModel
 import com.czxbnb.aurora.ui.profile.ProfileViewModel
 import dagger.Component
 import javax.inject.Singleton
@@ -82,4 +84,17 @@ interface ViewModelComponent {
      * @param profileViewModel profileViewModel in which to inject the dependencies
      */
     fun inject(profileViewModel: ProfileViewModel)
+
+
+    /**
+     * Injects required dependencies into the specified newsViewModel
+     * @param newsViewModel newsViewModel in which to inject the dependencies
+     */
+    fun inject(newsViewModel: NewsViewModel)
+
+    /**
+     * Injects required dependencies into the specified newsItemViewModel
+     * @param newsItemViewModel newsItemViewModel in which to inject the dependencies
+     */
+    fun inject(newsItemViewModel: NewsItemViewModel)
 }

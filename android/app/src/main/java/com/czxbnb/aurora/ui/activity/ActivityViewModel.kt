@@ -32,7 +32,7 @@ class ActivityViewModel: BaseViewModel() {
         getActivityList()
     }
 
-    fun getActivityList() {
+    private fun getActivityList() {
         activitySubscription = activityRepository.loadActivityList(AuroraApplication.getApplicationContext(),
             object : ActivityCallback {
             override fun onLoadActivityStart() {

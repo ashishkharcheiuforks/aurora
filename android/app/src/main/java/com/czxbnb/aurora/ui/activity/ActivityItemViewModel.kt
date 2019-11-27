@@ -28,8 +28,4 @@ class ActivityItemViewModel : BaseViewModel() {
     fun getActivityImage(): MutableLiveData<String> {
         return activityImage
     }
-
-    fun onActivityClick() {
-
-    }
 }

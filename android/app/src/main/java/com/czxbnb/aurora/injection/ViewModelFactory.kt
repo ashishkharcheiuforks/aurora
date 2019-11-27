@@ -12,6 +12,7 @@ import com.czxbnb.aurora.ui.login.LoginViewModel
 import com.czxbnb.aurora.ui.home.HomeActivityViewModel
 import com.czxbnb.aurora.ui.home.HomeViewModel
 import com.czxbnb.aurora.ui.main.MainViewModel
+import com.czxbnb.aurora.ui.news.NewsViewModel
 import com.czxbnb.aurora.ui.profile.ProfileViewModel
 
 class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
@@ -52,6 +53,10 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
                 return ProfileViewModel() as T
+            }
+            modelClass.isAssignableFrom(NewsViewModel::class.java) -> {
+                @Suppress("UNCHECKED_CAST")
+                return NewsViewModel() as T
             }
         }
         throw IllegalArgumentException("Unknown ViewModel Class")

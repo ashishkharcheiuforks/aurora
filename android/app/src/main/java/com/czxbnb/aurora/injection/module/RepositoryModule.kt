@@ -2,6 +2,7 @@ package com.czxbnb.aurora.injection.module
 
 import com.czxbnb.aurora.model.activity.ActivityRepository
 import com.czxbnb.aurora.model.activity_enrolment.ActivityEnrolmentRepository
+import com.czxbnb.aurora.model.news.NewsRepository
 import com.czxbnb.aurora.model.user.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -41,5 +42,17 @@ object RepositoryModule {
     @JvmStatic
     internal fun provideUserRepository(): UserRepository {
         return UserRepository.getInstance()
+    }
+
+
+    /**
+     * Provides the News repository implementation.
+     * @return the News repository implementation.
+     */
+    @Provides
+    @Reusable
+    @JvmStatic
+    internal fun provideNewsRepository(): NewsRepository {
+        return NewsRepository.getInstance()
     }
 }

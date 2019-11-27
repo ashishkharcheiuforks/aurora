@@ -7,4 +7,6 @@ object Keys {
     }
 
     external fun getGoogleMapsKey() : String
+
+    external fun getGoogleNewsKey() : String
 }
