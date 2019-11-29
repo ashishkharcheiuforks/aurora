@@ -1,7 +1,9 @@
 package com.czxbnb.aurora.model.news
 
+import androidx.room.Entity
 import java.io.Serializable
 
+@Entity
 data class News(
     val articles: List<Article>,
     val status: String,

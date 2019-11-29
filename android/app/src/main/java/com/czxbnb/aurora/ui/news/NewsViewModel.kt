@@ -27,7 +27,7 @@ class NewsViewModel : BaseViewModel() {
         getNews()
     }
 
-    private fun getNews() {
+    fun getNews() {
         newsSubscription = newsRepository.getNews("au",
             object : NewsCallback {
                 override fun onNewsStart() {
@@ -54,6 +54,7 @@ class NewsViewModel : BaseViewModel() {
 
     private fun onLoadNewsFinish() {
         newsLoadingVisibility.value = View.GONE
+        newsRefreshVisibility.value = false
     }
 
     private fun onLoadNewsSuccess(news: News) {

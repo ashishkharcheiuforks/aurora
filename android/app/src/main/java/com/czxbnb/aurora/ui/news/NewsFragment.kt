@@ -34,7 +34,9 @@ class NewsFragment : BaseFragment<NewsViewModel, FragmentNewsBinding>(NewsViewMo
         super.onViewCreated(view, savedInstanceState)
 
         // Define swipe refresh layout
-        srl_news.setOnRefreshListener {}
+        srl_news.setOnRefreshListener {
+            viewModel.getNews()
+        }
 
         viewModel.newsRefreshVisibility.observe(viewLifecycleOwner, Observer { refreshVisibility ->
             srl_news.isRefreshing = refreshVisibility
