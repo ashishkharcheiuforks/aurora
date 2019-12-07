@@ -36,9 +36,8 @@ class ArticleActivity : BaseActivity<ArticleViewModel, ActivityArticleBinding>(A
         layoutDots.removeAllViews()
         for (i in dots.indices) {
             dots[i] = ImageView(this)
-            val width_height = 10
             val params =
-                LinearLayout.LayoutParams(ViewGroup.LayoutParams(width_height, width_height))
+                LinearLayout.LayoutParams(ViewGroup.LayoutParams(10, 10))
             params.setMargins(10, 10, 10, 10)
             dots[i]!!.layoutParams = params
             dots[i]!!.setImageResource(R.drawable.shape_circle)
