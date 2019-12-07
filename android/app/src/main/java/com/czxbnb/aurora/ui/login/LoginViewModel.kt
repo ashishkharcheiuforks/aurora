@@ -15,8 +15,7 @@ import com.czxbnb.aurora.model.user.UserCallback
 import com.czxbnb.aurora.model.user.UserRepository
 
 
-class
-LoginViewModel: BaseViewModel() {
+class LoginViewModel : BaseViewModel() {
     @Inject
     lateinit var userRepository: UserRepository
 
@@ -74,7 +73,8 @@ LoginViewModel: BaseViewModel() {
 
     private fun onLoginSuccess(user: User) {
         // Save the token in preference
-        SharedPreferenceManager.getInstance(AuroraApplication.getApplicationContext())?.token = user.token
+        SharedPreferenceManager.getInstance(AuroraApplication.getApplicationContext())?.token =
+            user.token
 
         // Save the user information in preference
         SharedPreferenceManager.getInstance(AuroraApplication.getApplicationContext())?.user = user

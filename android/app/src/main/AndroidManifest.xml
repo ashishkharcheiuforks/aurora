@@ -58,6 +58,8 @@
         <activity android:name=".ui.main.MainActivity" />
 
         <activity android:name=".ui.activityDetail.ActivityDetailActivity" />
-    </application>
 
+        <activity android:name=".ui.article.ArticleActivity" />
+
+    </application>
 </manifest>
