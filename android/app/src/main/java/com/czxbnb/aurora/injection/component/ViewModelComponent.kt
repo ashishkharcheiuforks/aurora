@@ -6,6 +6,8 @@ import com.czxbnb.aurora.ui.activity.ActivityItemViewModel
 import com.czxbnb.aurora.ui.activity.ActivityViewModel
 import com.czxbnb.aurora.ui.activityDetail.ActivityConfirmViewModel
 import com.czxbnb.aurora.ui.activityDetail.ActivityDetailViewModel
+import com.czxbnb.aurora.ui.article.ArticleStepperViewModel
+import com.czxbnb.aurora.ui.article.ArticleViewModel
 import com.czxbnb.aurora.ui.login.LoginViewModel
 import com.czxbnb.aurora.ui.home.HomeActivityViewModel
 import com.czxbnb.aurora.ui.home.HomeViewModel
@@ -31,70 +33,29 @@ interface ViewModelComponent {
         fun repositoryModule (repositoryModule: RepositoryModule): Builder
     }
 
-    /**
-     * Injects required dependencies into the specified LoginViewModel
-     * @param loginViewModel LoginViewModel in which to inject the dependencies
-     */
     fun inject(loginViewModel: LoginViewModel)
 
-    /**
-     * Injects required dependencies into the specified MainViewModel
-     * @param mainViewModel MainViewModel in which to inject the dependencies
-     */
     fun inject(mainViewModel: MainViewModel)
 
-    /**
-     * Injects required dependencies into the specified HomeViewModel
-     * @param homeViewModel HomeViewModel in which to inject the dependencies
-     */
     fun inject(homeViewModel: HomeViewModel)
 
-    /**
-     * Injects required dependencies into the specified HomeActivityViewModel
-     * @param homeActivityViewModel HomeActivityViewModel in which to inject the dependencies
-     */
     fun inject(homeActivityViewModel: HomeActivityViewModel)
 
-    /**
-     * Injects required dependencies into the specified activityViewModel
-     * @param activityViewModel activityViewModel in which to inject the dependencies
-     */
     fun inject(activityViewModel: ActivityViewModel)
 
-    /**
-     * Injects required dependencies into the specified activityItemViewModel
-     * @param activityItemViewModel activityItemViewModel in which to inject the dependencies
-     */
     fun inject(activityItemViewModel: ActivityItemViewModel)
 
-    /**
-     * Injects required dependencies into the specified activityDetailViewModel
-     * @param activityDetailViewModel activityDetailViewModel in which to inject the dependencies
-     */
     fun inject(activityDetailViewModel: ActivityDetailViewModel)
 
-    /**
-     * Injects required dependencies into the specified activityConfirmViewModel
-     * @param activityConfirmViewModel activityConfirmViewModel in which to inject the dependencies
-     */
     fun inject(activityConfirmViewModel: ActivityConfirmViewModel)
 
-    /**
-     * Injects required dependencies into the specified profileViewModel
-     * @param profileViewModel profileViewModel in which to inject the dependencies
-     */
     fun inject(profileViewModel: ProfileViewModel)
 
-
-    /**
-     * Injects required dependencies into the specified newsViewModel
-     * @param newsViewModel newsViewModel in which to inject the dependencies
-     */
     fun inject(newsViewModel: NewsViewModel)
 
-    /**
-     * Injects required dependencies into the specified newsItemViewModel
-     * @param newsItemViewModel newsItemViewModel in which to inject the dependencies
-     */
     fun inject(newsItemViewModel: NewsItemViewModel)
+
+    fun inject(articleViewModel: ArticleViewModel)
+
+    fun inject(articleStepperViewModel: ArticleStepperViewModel)
 }

@@ -1,6 +1,7 @@
 package com.czxbnb.aurora.ui.news
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -9,6 +10,8 @@ import com.czxbnb.aurora.R
 import com.czxbnb.aurora.databinding.ItemNewsBinding
 import com.czxbnb.aurora.model.news.Article
 import com.czxbnb.aurora.model.news.News
+import com.czxbnb.aurora.ui.activityDetail.ActivityDetailActivity
+import com.czxbnb.aurora.ui.article.ArticleActivity
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
     private lateinit var news: News
@@ -24,6 +27,13 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(news.articles[position])
+
+        // set onclick listener
+        binding.cvItem.setOnClickListener {
+            val intent = Intent(context, ArticleActivity::class.java)
+            intent.putExtra("article", news.articles[position])
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

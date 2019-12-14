@@ -9,6 +9,8 @@ import com.czxbnb.aurora.injection.module.RepositoryModule
 import com.czxbnb.aurora.ui.activity.ActivityViewModel
 import com.czxbnb.aurora.ui.activityDetail.ActivityConfirmViewModel
 import com.czxbnb.aurora.ui.activityDetail.ActivityDetailViewModel
+import com.czxbnb.aurora.ui.article.ArticleStepperViewModel
+import com.czxbnb.aurora.ui.article.ArticleViewModel
 import com.czxbnb.aurora.ui.login.LoginViewModel
 import com.czxbnb.aurora.ui.home.HomeActivityViewModel
 import com.czxbnb.aurora.ui.home.HomeViewModel
@@ -43,6 +45,8 @@ abstract class BaseViewModel : ViewModel() {
             is ActivityConfirmViewModel -> component.inject(this)
             is ProfileViewModel -> component.inject(this)
             is NewsViewModel -> component.inject(this)
+            is ArticleViewModel -> component.inject(this)
+            is ArticleStepperViewModel -> component.inject(this)
         }
     }
 

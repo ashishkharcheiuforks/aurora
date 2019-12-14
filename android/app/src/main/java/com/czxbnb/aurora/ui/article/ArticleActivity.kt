@@ -10,12 +10,12 @@ import androidx.viewpager.widget.ViewPager
 import com.czxbnb.aurora.R
 import com.czxbnb.aurora.base.BaseActivity
 import com.czxbnb.aurora.databinding.ActivityArticleBinding
+import com.czxbnb.aurora.model.news.Article
 import kotlinx.android.synthetic.main.activity_article.*
 
 class ArticleActivity : BaseActivity<ArticleViewModel, ActivityArticleBinding>(ArticleViewModel::class.java) {
 
-    private val MAX_STEP = 4
-    private lateinit var viewPager: ViewPager
+    private val MAX_STEP = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +24,9 @@ class ArticleActivity : BaseActivity<ArticleViewModel, ActivityArticleBinding>(A
         // adding bottom dots
         bottomProgressDots(0)
 
+        // Set adapter
+        val articleStepperPageAdapter = ArticleStepperPageAdapter(supportFragmentManager, intent.getSerializableExtra("article") as Article)
+        vp_news.adapter = articleStepperPageAdapter
     }
 
     override fun getLayoutRes(): Int {
@@ -49,9 +52,5 @@ class ArticleActivity : BaseActivity<ArticleViewModel, ActivityArticleBinding>(A
             dots[current_index]!!.setImageResource(R.drawable.shape_circle)
             dots[current_index]?.setColorFilter(resources.getColor(R.color.grey_80), PorterDuff.Mode.SRC_IN)
         }
-    }
-
-    private fun initComponent() {
-
     }
 }
