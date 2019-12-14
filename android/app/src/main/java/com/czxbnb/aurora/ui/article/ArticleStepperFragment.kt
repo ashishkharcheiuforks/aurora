@@ -14,6 +14,7 @@ class ArticleStepperFragment(
     private val articleStr: String
 ) :
     BaseFragment<ArticleStepperViewModel, FragmentArticleStepperBinding>(ArticleStepperViewModel::class.java) {
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
